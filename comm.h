@@ -18,7 +18,69 @@ typedef struct package{
 	int32_t status_sd;
 	int32_t bar_speed;
 	int32_t is_open;
-	uint8_t end_char;
 }package;
 
+//Setters
+void set_mode(package *, int32_t);
+
+void set_gps_isValid(package *, int32_t);
+
+void set_gps_lat(package *, int32_t);
+
+void set_gps_lng(package *, int32_t);
+
+void set_gps_hdop_value(package *, int32_t);
+
+void set_gps_satellites_value(package *, int32_t);
+
+void set_gps_altitude_meters(package *, int32_t);
+
+void set_gps_course_deg(package *, int32_t);
+
+void set_gps_speed_kmph(package *, int32_t);
+
+void set_bpm_temperature(package *, int32_t);
+
+void set_bpm_altitude(package *, int32_t);
+
+void set_bpm_pressure(package *, int32_t);
+
+void set_status_sd(package *, int32_t);
+
+void set_bar_speed(package *, int32_t);
+
+void set_is_open(package *, int32_t);
+
+//Getters
 int32_t get_mode(package);
+
+int32_t get_gps_isValid(package);
+
+int32_t get_gps_lat(package);
+
+int32_t get_gps_lng(package);
+
+int32_t get_gps_hdop_value(package);
+
+int32_t get_gps_satellites_value(package);
+
+int32_t get_gps_altitude_meters(package);
+
+int32_t get_gps_course_deg(package);
+
+int32_t get_gps_speed_kmph(package);
+
+int32_t get_bpm_temperature(package);
+
+int32_t get_bpm_altitude(package);
+
+int32_t get_bpm_pressure(package);
+
+int32_t get_status_sd(package);
+
+int32_t get_bar_speed(package);
+
+int32_t get_is_open(package);
+
+//Prints package data
+void print_pkg(package);

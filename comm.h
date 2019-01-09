@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <inttypes.h>
 
+#define PACKAGE_SIZE 60 
+
 typedef struct package{
 	int32_t mode;
 	int32_t gps_isValid;
@@ -20,7 +22,7 @@ typedef struct package{
 	int32_t is_open;
 }package;
 
-//Setters
+//---Setters---
 void set_mode(package *, int32_t);
 
 void set_gps_isValid(package *, int32_t);
@@ -51,7 +53,7 @@ void set_bar_speed(package *, int32_t);
 
 void set_is_open(package *, int32_t);
 
-//Getters
+//---Getters---
 int32_t get_mode(package);
 
 int32_t get_gps_isValid(package);
@@ -82,5 +84,19 @@ int32_t get_bar_speed(package);
 
 int32_t get_is_open(package);
 
-//Prints package data
-void print_pkg(package);
+int8_t get_parity_bit(package);
+
+
+//---Utils---
+
+//Prints package data using struct
+void print_struct_pkg(package);
+
+//Prints array package
+void print_array_pkg(uint8_t*);
+
+//Converts a package to byte array
+uint8_t* struct_to_byte_array(package);
+
+
+

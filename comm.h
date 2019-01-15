@@ -1,8 +1,15 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <inttypes.h>
+#include <iostream>
+#include <cstddef>
+#include <vector>
 
 #define PACKAGE_SIZE 60 
+#define FRAG_SIZE 60 //if equals the PACKAGE_SIZE will send one data at time
+#define NUM_OF_DATA  15 //number of data in package array
+
+using namespace std;
 
 typedef struct package{
 	int32_t mode;
@@ -91,12 +98,4 @@ int8_t get_parity_bit(package);
 
 //Prints package data using struct
 void print_struct_pkg(package);
-
-//Prints array package
-void print_array_pkg(uint8_t*);
-
-//Converts a package to byte array
-uint8_t* struct_to_byte_array(package);
-
-
 

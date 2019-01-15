@@ -99,3 +99,11 @@ int8_t get_parity_bit(package);
 //Prints package data using struct
 void print_struct_pkg(package);
 
+//Prints a byte
+void print_byte(byte&);
+
+//struct to byte array
+
+
+//Calculate checksum
+int32_t checksum(package);

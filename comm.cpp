@@ -141,6 +141,16 @@ void print_pkg(package pkg){
 	cout << "is_open: " << get_is_open(pkg) << "\n";
 }
 
+//Prints a byte
+void print_byte(byte& byte){
+	cout << to_integer<int>(byte) << endl;
+}
+
+//Calculates the checksum
+int32_t checksum(package pkg){
+	return 0;
+}
+
 int main(){
 
 	package pkg;
@@ -165,6 +175,14 @@ int main(){
 	set_bar_speed(&pkg, 4);
 	set_is_open(&pkg, 257);
 
+	//Tests
+	//Vector of bytes
+	vector<byte> byteArr(NUM_OF_DATA, byte {8});
+	//How to set a position
+	byteArr[2] = byte{30};
+	//Sigle byte var
+	byte myByte {0b0011};
+	print_byte(byteArr[2]);
 	print_pkg(pkg);
 		
 	return 0;

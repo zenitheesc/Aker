@@ -124,66 +124,21 @@ int32_t get_is_open(package pkg){
 
 //--Utils--
 void print_pkg(package pkg){
-	printf("mode: %d\n", get_mode(pkg));
-	printf("gps_isValid: %d\n", get_gps_isValid(pkg));
-	printf("gps_lat: %d\n", get_gps_lat(pkg));
-	printf("gps_lng: %d\n", get_gps_lng(pkg));
-	printf("gps_hdop_value: %d\n", get_gps_hdop_value(pkg));
-	printf("gps_satellites_value %d\n", get_gps_satellites_value(pkg));
-	printf("gps_altitude_meters %d\n", get_gps_altitude_meters(pkg));
-	printf("gps_course_deg %d\n", get_gps_course_deg(pkg));
-	printf("gps_speed_kmph %d\n", get_gps_speed_kmph(pkg));
-	printf("bpm_temperature %d\n", get_bpm_temperature(pkg));
-	printf("bpm_altitude %d\n", get_bpm_altitude(pkg));
-	printf("bpm_pressure %d\n", get_bpm_pressure(pkg));
-	printf("status_sd %d\n", get_status_sd(pkg));
-	printf("bar_speed %d\n", get_bar_speed(pkg));
-	printf("is_open %d\n", get_is_open(pkg));
-}
-
-//Prints package data using struct
-void print_struct_pkg(package pkg){
-	printf("mode: %d\n", get_mode(pkg));
-	printf("gps_isValid: %d\n", get_gps_isValid(pkg));
-	printf("gps_lat: %d\n", get_gps_lat(pkg));
-	printf("gps_lng: %d\n", get_gps_lng(pkg));
-	printf("gps_hdop_value: %d\n", get_gps_hdop_value(pkg));
-	printf("gps_satellites_value %d\n", get_gps_satellites_value(pkg));
-	printf("gps_altitude_meters %d\n", get_gps_altitude_meters(pkg));
-	printf("gps_course_deg %d\n", get_gps_course_deg(pkg));
-	printf("gps_speed_kmph %d\n", get_gps_speed_kmph(pkg));
-	printf("bpm_temperature %d\n", get_bpm_temperature(pkg));
-	printf("bpm_altitude %d\n", get_bpm_altitude(pkg));
-	printf("bpm_pressure %d\n", get_bpm_pressure(pkg));
-	printf("status_sd %d\n", get_status_sd(pkg));
-	printf("bar_speed %d\n", get_bar_speed(pkg));
-	printf("is_open %d\n", get_is_open(pkg));
-}
-
-//Prints array package
-void print_array_pkg(uint8_t* pkg_data){
-	
-	int8_t i;
-	
-	for(i = 0; i < PACKAGE_SIZE; i++){
-		printf("%d", pkg_data[i]);
-	}
-	printf("\n");
-	
-	return;
-}
-
-//Converts a package to byte array
-uint8_t* struct_to_byte_array(package pkg){
-	
-	//Memory allocation
-	uint8_t *ptrByte  = (uint8_t *) malloc(sizeof(pkg));
-	
-	//casts a pointer to byte from pkg address
-	ptrByte  = (uint8_t *) &pkg;
-	
-	return ptrByte;
-	
+	cout << "mode: " << get_mode(pkg) << "\n";
+	cout << "gps_isValid: " << get_gps_isValid(pkg) << "\n";
+	cout << "gps_lat: " << get_gps_lat(pkg) << "\n";
+	cout << "gps_lng: " << get_gps_lng(pkg) << "\n";
+	cout << "gps_hdop_value: " << get_gps_hdop_value(pkg) << "\n";
+	cout << "gps_satellites_value: " << get_gps_satellites_value(pkg) << "\n";
+	cout << "gps_altitude_meters: " << get_gps_altitude_meters(pkg) << "\n";
+	cout << "gps_course_deg: " << get_gps_course_deg(pkg) << "\n";
+	cout << "gps_speed_kmph: " << get_gps_speed_kmph(pkg) << "\n";
+	cout << "bpm_temperature: " << get_bpm_temperature(pkg) << "\n";
+	cout << "bpm_altitude: " << get_bpm_altitude(pkg) << "\n";
+	cout << "bpm_pressure: " << get_bpm_pressure(pkg) << "\n";
+	cout << "status_sd: " << get_status_sd(pkg) << "\n";
+	cout << "bar_speed: " << get_bar_speed(pkg) << "\n";
+	cout << "is_open: " << get_is_open(pkg) << "\n";
 }
 
 int main(){
@@ -191,7 +146,7 @@ int main(){
 	package pkg;
 	uint8_t* pkg_data;
 	
-	printf("Size of pkg : %d\n", sizeof(pkg));
+	cout << "Size of pkg: " << sizeof(pkg) << "\n";
 	
 	//Package initialization
 	set_mode(&pkg, 3);
@@ -209,13 +164,8 @@ int main(){
 	set_status_sd(&pkg, 1);
 	set_bar_speed(&pkg, 4);
 	set_is_open(&pkg, 257);
-	
-	pkg_data = struct_to_byte_array(pkg);
-	
-	//Show package data
-	print_struct_pkg(pkg);
-	printf("Data Array : ");
-	print_array_pkg(pkg_data);
 
+	print_pkg(pkg);
+		
 	return 0;
 }

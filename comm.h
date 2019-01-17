@@ -6,92 +6,89 @@
 #include <vector>
 
 #define PACKAGE_SIZE 60 
-#define FRAG_SIZE 60 //if equals the PACKAGE_SIZE will send one data at time
 #define NUM_OF_DATA  15 //number of data in package array
 
 using namespace std;
 
 typedef struct package{
-	int32_t mode;
-	int32_t gps_isValid;
-	int32_t gps_lat;
-	int32_t gps_lng;
-	int32_t gps_hdop_value;
-	int32_t gps_satellites_value;
-	int32_t gps_altitude_meters;
-	int32_t gps_course_deg;
-	int32_t gps_speed_kmph;
-	int32_t bpm_temperature;
-	int32_t bpm_altitude;
-	int32_t bpm_pressure;
-	int32_t status_sd;
-	int32_t bar_speed;
-	int32_t is_open;
+	uint32_t mode;
+	uint32_t gps_isValid;
+	uint32_t gps_lat;
+	uint32_t gps_lng;
+	uint32_t gps_hdop_value;
+	uint32_t gps_satellites_value;
+	uint32_t gps_altitude_meters;
+	uint32_t gps_course_deg;
+	uint32_t gps_speed_kmph;
+	uint32_t bpm_temperature;
+	uint32_t bpm_altitude;
+	uint32_t bpm_pressure;
+	uint32_t status_sd;
+	uint32_t bar_speed;
+	uint32_t is_open;
 }package;
 
 //---Setters---
-void set_mode(package *, int32_t);
+void set_mode(package *, uint32_t);
 
-void set_gps_isValid(package *, int32_t);
+void set_gps_isValid(package *, uint32_t);
 
-void set_gps_lat(package *, int32_t);
+void set_gps_lat(package *, uint32_t);
 
-void set_gps_lng(package *, int32_t);
+void set_gps_lng(package *, uint32_t);
 
-void set_gps_hdop_value(package *, int32_t);
+void set_gps_hdop_value(package *, uint32_t);
 
-void set_gps_satellites_value(package *, int32_t);
+void set_gps_satellites_value(package *, uint32_t);
 
-void set_gps_altitude_meters(package *, int32_t);
+void set_gps_altitude_meters(package *, uint32_t);
 
-void set_gps_course_deg(package *, int32_t);
+void set_gps_course_deg(package *, uint32_t);
 
-void set_gps_speed_kmph(package *, int32_t);
+void set_gps_speed_kmph(package *, uint32_t);
 
-void set_bpm_temperature(package *, int32_t);
+void set_bpm_temperature(package *, uint32_t);
 
-void set_bpm_altitude(package *, int32_t);
+void set_bpm_altitude(package *, uint32_t);
 
-void set_bpm_pressure(package *, int32_t);
+void set_bpm_pressure(package *, uint32_t);
 
-void set_status_sd(package *, int32_t);
+void set_status_sd(package *, uint32_t);
 
-void set_bar_speed(package *, int32_t);
+void set_bar_speed(package *, uint32_t);
 
-void set_is_open(package *, int32_t);
+void set_is_open(package *, uint32_t);
 
 //---Getters---
-int32_t get_mode(package);
+uint32_t get_mode(package);
 
-int32_t get_gps_isValid(package);
+uint32_t get_gps_isValid(package);
 
-int32_t get_gps_lat(package);
+uint32_t get_gps_lat(package);
 
-int32_t get_gps_lng(package);
+uint32_t get_gps_lng(package);
 
-int32_t get_gps_hdop_value(package);
+uint32_t get_gps_hdop_value(package);
 
-int32_t get_gps_satellites_value(package);
+uint32_t get_gps_satellites_value(package);
 
-int32_t get_gps_altitude_meters(package);
+uint32_t get_gps_altitude_meters(package);
 
-int32_t get_gps_course_deg(package);
+uint32_t get_gps_course_deg(package);
 
-int32_t get_gps_speed_kmph(package);
+uint32_t get_gps_speed_kmph(package);
 
-int32_t get_bpm_temperature(package);
+uint32_t get_bpm_temperature(package);
 
-int32_t get_bpm_altitude(package);
+uint32_t get_bpm_altitude(package);
 
-int32_t get_bpm_pressure(package);
+uint32_t get_bpm_pressure(package);
 
-int32_t get_status_sd(package);
+uint32_t get_status_sd(package);
 
-int32_t get_bar_speed(package);
+uint32_t get_bar_speed(package);
 
-int32_t get_is_open(package);
-
-int8_t get_parity_bit(package);
+uint32_t get_is_open(package);
 
 
 //---Utils---
@@ -102,8 +99,20 @@ void print_struct_pkg(package);
 //Prints a byte
 void print_byte(byte&);
 
-//struct to byte array
+//Prints the byte vector
+void print_byte_vector(vector<byte>);
 
+//Prints the uint8_t byte array
+void print_byte_array(uint8_t*);
 
-//Calculate checksum
-int32_t checksum(package);
+//struct to byte vector (vector<byte>)
+vector<byte> struct_to_byte_vector(package);
+
+//byte vector to struct
+package byte_vector_to_struct(vector<byte>);
+
+//Byte vector to uint8_t array
+uint8_t* byte_vector_to_array(vector<byte>);
+
+//uint8_t array to byte vector
+vector<byte> byte_array_to_vector(uint8_t*);

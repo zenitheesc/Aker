@@ -5,8 +5,9 @@
 #include <cstddef>
 #include <vector>
 
-#define PACKAGE_SIZE 60 
+#define PACKAGE_SIZE 62 
 #define NUM_OF_DATA  15 //number of data in package array
+#define NUM_OF_FRAGMENTS 10
 
 using namespace std;
 
@@ -26,6 +27,8 @@ typedef struct package{
 	uint32_t status_sd;
 	uint32_t bar_speed;
 	uint32_t is_open;
+	//The checksum must ALWAYS be the last package element
+	uint32_t checksum; 
 }package;
 
 //---Setters---
@@ -59,6 +62,7 @@ void set_bar_speed(package *, uint32_t);
 
 void set_is_open(package *, uint32_t);
 
+void set_checksum(package *, uint32_t);
 //---Getters---
 uint32_t get_mode(package);
 
@@ -90,7 +94,7 @@ uint32_t get_bar_speed(package);
 
 uint32_t get_is_open(package);
 
-
+uint32_t get_checksum(package);
 //---Utils---
 
 //Prints package data using struct
@@ -115,4 +119,12 @@ package byte_vector_to_struct(vector<byte>);
 uint8_t* byte_vector_to_array(vector<byte>);
 
 //uint8_t array to byte vector
-vector<byte> byte_array_to_vector(uint8_t*);
+vector<byte> array_to_byte_vector(uint8_t*);
+
+//Calculates the checksum
+uint32_t checksum(uint8_t*);
+
+//Verify if the package checksum is equal to the
+//checksum calculated here
+//0 is equal, otherise not equal
+uint32_t verify_checksum(uint8_t*);

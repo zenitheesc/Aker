@@ -61,6 +61,10 @@ void set_is_open(package * pkg, uint32_t is_open){
 	pkg->is_open = is_open;
 }
 
+void set_checksum(package * pkg, uint32_t checksum){
+	pkg->checksum = checksum;
+}
+
 //---Getters---
 uint32_t get_mode(package pkg){
 	return pkg.mode;
@@ -120,6 +124,10 @@ uint32_t get_bar_speed(package pkg){
 
 uint32_t get_is_open(package pkg){
 	return pkg.is_open;
+}
+
+uint32_t get_checksum(package pkg){
+	return pkg.checksum;
 }
 
 //--Utils--
@@ -490,7 +498,7 @@ uint8_t* byte_vector_to_array(vector<byte> byteArr){
 }
 
 //uint8_t array to byte vector
-vector<byte> byte_array_to_vector(uint8_t* buffer){
+vector<byte> array_to_byte_vector(uint8_t* buffer){
 
 	//Creates a byte vector
 	vector<byte> byteArr(PACKAGE_SIZE);
@@ -503,6 +511,48 @@ vector<byte> byte_array_to_vector(uint8_t* buffer){
 
 	return byteArr;
 }
+
+//Calculates the checksum
+uint32_t checksum(uint8_t* buffer){
+
+	uint32_t sum = 0;
+	uint8_t i = 0;
+	uint8_t j = 0;
+
+	//For each fragment
+	for(i = 0; i < NUM_OF_FRAGMENTS; i++){
+		printf("Frag %d : ", i);
+
+		//For each element of the fragments
+		for(j = 0; j < (PACKAGE_SIZE-2)/NUM_OF_FRAGMENTS; j++){
+
+			//Calculates the checksum
+			sum+=(unsigned)buffer[i*((PACKAGE_SIZE-2)/NUM_OF_FRAGMENTS) + j];
+			printf("%d", (unsigned)buffer[i*((PACKAGE_SIZE-2)/NUM_OF_FRAGMENTS) + j]);
+		}
+		printf("\n");
+	}
+
+	printf("Checksum : %d\n", sum);
+
+	return sum;
+}
+
+//Verify if the package checksum is equal to the
+//checksum calculated here
+//0 is equal, otherise not equal
+uint32_t verify_checksum(uint8_t* buffer){
+
+	//Calculates the receiver checksum
+	uint32_t rcv_checksum = checksum(buffer);
+
+	//Converts the buffer to package
+	package received_pkg = byte_vector_to_struct(array_to_byte_vector(buffer));
+
+	//Compares the checksums
+	return rcv_checksum - get_checksum(received_pkg);
+
+};
 
 int main(){
 
@@ -549,9 +599,20 @@ int main(){
 	buffer = byte_vector_to_array(byteArr2);
 	print_byte_array(buffer);
 	cout << "\n";
-	vector<byte> byteArr3 = byte_array_to_vector(buffer);
+	vector<byte> byteArr3 = array_to_byte_vector(buffer);
 	print_byte_vector(byteArr3);
 	cout << "\n";
+
+	//Testing the checksum
+	//Sender:
+		//Calculates the checksum
+		set_checksum(&pkg, checksum(buffer));
+		//Forces an error adding 1 to the package checksum
+		set_checksum(&pkg, get_checksum(pkg) + 1);
+	//Receiver:	
+		//Verify the checksum
+		printf("Checksum verification : %d\n", verify_checksum(buffer));
+
 
 	return 0;
 }

@@ -8,8 +8,15 @@ using namespace std;
 class CodeGenerator {
 
 public:
+	//Current max value of the state machine
+	//Shared with all the instances of the CodeGenrator
+	static int curr_state_number;
+
 	//Generate the linear code given the user input
 	void linear_code(string user_input);
+
+	//Generate the state machine code given the user input
+	void state_machine_code(string user_input);
 
 	//Starts the code 
 	void start();
@@ -25,6 +32,9 @@ public:
 
 	//Inclues the functions for the communication
 	void comm_code();
+
+	//Inclues the functions for the system initial setup
+	void initial_setup();
 };
 
 
@@ -48,6 +58,62 @@ void CodeGenerator::linear_code(string user_input){
 				break;
 		}
 	}
+
+	return;
+}
+
+void CodeGenerator::state_machine_code(string user_input){
+
+	CodeGenerator code_gen;
+
+	//Opens the file
+	ofstream code_file;
+	string code;
+	code_file.open(code_file_name, ios_base::app);
+
+	//Initializes a state machine var
+	code = "//State Machine state\n";
+	code = "int state = 0;\n\n";
+
+	//Opens the state machine
+	code = "switch(state){\n";
+	
+	//Initial setup state
+	//also increments the curr_state_number
+	code = "case '" + to_string(CodeGenerator::curr_state_number++) + "':\n";
+
+	//writes to the file
+	code_file << code;
+	//You need to close the file before call a function that opens it
+	code_file.close();
+
+	//Writes the initial setup
+	code_gen.initial_setup();
+
+	//Opens the file
+	code_file.open(code_file_name, ios_base::app);
+
+	//Another state
+	code = "case '" + to_string(CodeGenerator::curr_state_number++) + "':\n";
+
+	//writes to the file
+	code_file << code;
+	//You need to close the file before call a function that opens it
+	code_file.close();
+
+	//Write the linear code state
+	code_gen.linear_code(user_input);
+
+	//Opens the file
+	code_file.open(code_file_name, ios_base::app);
+
+	//Close the switch
+	code = "}\n";
+
+	//writes to the file
+	code_file << code;
+	//You need to close the file before call a function that opens it
+	code_file.close();
 
 	return;
 }
@@ -154,6 +220,30 @@ void CodeGenerator::comm_code(){
 	code_file.close();
 }
 
+void CodeGenerator::initial_setup(){
+
+	//Starts the generated code file
+	ofstream code_file;
+	string code;
+
+	//Open the file to append
+	code_file.open(code_file_name, ios_base::app);
+
+	code = "\n";
+	code = code + "	//Code for the initial setup\n";
+	code = code + "	system_init();\n";
+	code = code + "	system_config();\n";
+	code = code + "\n";
+
+	//Writes to file
+	code_file << code;
+	code_file.close();
+}
+
+
+//Initializes the state machine counter
+int CodeGenerator::curr_state_number = 0;
+
 int main(){
 
 	string user_input;
@@ -168,7 +258,7 @@ int main(){
 	//Starts the code
 	code_gen.start();
 	//Write the linear code
-	code_gen.linear_code(user_input);
+	code_gen.state_machine_code(user_input);
 	//Finishes the code
 	code_gen.finish();
 

@@ -1,7 +1,7 @@
 #include "codeGenerator.h"
 using namespace std;
 
-int CodeGenerator::state_machine_code(int id_functions[]){
+int CodeGenerator::state_machine_code(int ** states_functions, int number_of_states){
 
 	CodeGenerator code_gen;
 
@@ -17,37 +17,35 @@ int CodeGenerator::state_machine_code(int id_functions[]){
 	//Opens the state machine
 	code += "switch(state){\n";
 
-	//Initial setup state
-	//also increments the curr_state_number
-	code += "case '" + to_string(CodeGenerator::curr_state_number++) + "':\n";
-
 	//writes to the file
 	code_file << code;
+
 	//You need to close the file before call a function that opens it
 	code_file.close();
 
-	//Writes the initial setup
-	code_gen.initial_setup();
+	//For each state, calls the linear_function to write it's respective functions
+	for(int i = 0; i < number_of_states; i++){
 
-	//Opens the file
-	code_file.open(code_file_name, ios_base::app);
+		code_file.open(code_file_name, ios_base::app);
 
-	//Another state
-	code = "case '" + to_string(CodeGenerator::curr_state_number++) + "':\n";
+		//Another state
+		code = "\n	case '" + to_string(i) + "':\n";
 
-	//writes to the file
-	code_file << code;
-	//You need to close the file before call a function that opens it
-	code_file.close();
+		//writes to the file
+		code_file << code;
 
-	//Write the linear code state
-	code_gen.linear_function(id_functions);
+		//You need to close the file before call a function that opens it
+		code_file.close();
+
+		//Write the linear code state
+		code_gen.linear_function(states_functions[i]);
+	}
 
 	//Opens the file
 	code_file.open(code_file_name, ios_base::app);
 
 	//Close the switch
-	code = "\n}\n";
+	code = "\n    }\n";
 
 	//writes to the file
 	code_file << code;
@@ -135,23 +133,36 @@ void CodeGenerator::finish(){
 void CodeGenerator::create_functions_database(){
 
     CodeGenerator code_gen;
-    code_generator_struct new_f; //Struct that receives new function data
+    code_generator_struct new_m; //Struct that receives new function data
     FILE *data_base; //Pointer to data_base file
     cout << "    Put function ID: ";
-    cin >> new_f.id;
+    cin >> new_m.id;
     cin.ignore();//Ignores upper cin \n
     cout << endl << "    Put function name: ";
-    cin.getline(new_f.name, 100);
+    cin.getline(new_m.name, 100);
 
     //Verify the input name
-    while(check_function_name(new_f.name) != 0){
+    while(check_function_name(new_m.name) != 0){
     	cout << endl << "    Put function name: ";
-    	cin.getline(new_f.name, 100);
+    	cin.getline(new_m.name, 100);
+    }
+
+    cout << endl << "	Put the number of parameters: ";
+    cin >> new_m.number_of_parameters;
+    cin.ignore();
+
+    //Insert all the parameters
+    for(int i = 0; i < new_m.number_of_parameters; i++){
+    	cout <<  endl << "	  Put type of the parameter: ";
+	    cin.getline(new_m.param_types[i], 100);
+
+	    cout << endl << "	Put the name of the parameter: ";
+	    cin.getline(new_m.param_names[i], 100);
     }
 
     data_base = fopen(functions_data_base_path.c_str(), "r+b");
-    fseek(data_base, (new_f.id-1)*sizeof(code_generator_struct), SEEK_SET);
-    fwrite(&new_f, sizeof(code_generator_struct), 1, data_base);
+    fseek(data_base, (new_m.id-1)*sizeof(code_generator_struct), SEEK_SET);
+    fwrite(&new_m, sizeof(code_generator_struct), 1, data_base);
     fclose(data_base);
 }
 
@@ -236,7 +247,32 @@ int CodeGenerator::linear_function(int id_functions[]){
 			fread(&data_for_functions, sizeof(code_generator_struct), 1, data_base);
             s_functions = data_for_functions.name;
 			linear_functions = linear_functions + "\n    ";
-			linear_functions = linear_functions + s_functions + "();";
+
+			//Write the variables according to the parameters names and types
+			//Write parameters
+			for(int j = 0; j < data_for_functions.number_of_parameters; j++){
+				//Type
+				linear_functions =  linear_functions + data_for_functions.param_types[j] + " ";
+				//Name
+				linear_functions = linear_functions + data_for_functions.param_names[j] + "\n    ";
+			}
+
+
+			linear_functions = linear_functions + s_functions + "(";
+			
+			//Write parameters
+			for(int j = 0; j < data_for_functions.number_of_parameters; j++){
+				//Name
+				linear_functions = linear_functions + data_for_functions.param_names[j];
+
+				if(j == data_for_functions.number_of_parameters - 1){
+					linear_functions = linear_functions + ");\n";
+				}
+				else{
+					linear_functions = linear_functions + ", ";
+				}
+			}
+
             s_functions = "";
 					i++;
 			}

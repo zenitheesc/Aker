@@ -9,13 +9,16 @@ using namespace std;
 typedef struct DATA_BASE_FOR_CODE_GENERATOR {
 		int id;
 		char name[100];
+		int number_of_parameters;
+		char param_types[10][100];
+		char param_names[10][100];
 } code_generator_struct;
 
 class CodeGenerator {
 public:
 
 	//Generate the state machine code given the user input
-	int state_machine_code(int *id_functions);
+	int state_machine_code(int ** states_functions,int number_of_states);
 
 	//Append functions records into CodeGenerator Functions DataBase
 	void create_functions_database();

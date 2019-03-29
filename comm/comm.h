@@ -128,3 +128,13 @@ uint32_t checksum(uint8_t*);
 //checksum calculated here
 //0 is equal, otherise not equal
 uint32_t verify_checksum(uint8_t*);
+
+//This generates a byte vector whith the data of
+//the package. The difference is that every byte
+//of data is repeated n times in the output
+vector<byte> gen_repeated_bytes(vector<byte>, uint8_t);
+
+//This regerates the original vector based on the 
+//vector with repeated bytes, by picking the most
+//recurrent value of each set of repetition
+vector<byte> undo_repeated_bytes(vector<byte>, uint8_t);

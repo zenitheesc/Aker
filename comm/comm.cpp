@@ -554,6 +554,48 @@ uint32_t verify_checksum(uint8_t* buffer){
 
 };
 
+//This generates a byte vector whith the data of
+//the package. The difference is that every byte
+//of data is repeated n times in the output
+vector<byte> gen_repeated_bytes(vector<byte> in_vector, uint8_t num_repetitions){
+
+	//Output vector
+	vector<byte> out_vector(PACKAGE_SIZE*num_repetitions);
+
+	uint8_t i = 0;
+	uint8_t j = 0;
+	//Iterates over the input
+	for(i = 0; i < PACKAGE_SIZE; i++){
+		//Repeates <num_repetitions> time
+		for(j = 0; j < num_repetitions; j++){
+			//Set the bytes		
+			out_vector[i*num_repetitions + j] = in_vector[i];
+		}
+	}
+
+	cout << "Inp : ";
+	for(i = 0; i < PACKAGE_SIZE; i++){
+		cout << (unsigned)in_vector[i];
+	}
+
+	cout << "\nOut : ";
+	for(i = 0; i < PACKAGE_SIZE*num_repetitions; i++){
+		cout << (unsigned)out_vector[i];
+	}
+
+	return out_vector;
+
+}
+
+//This regerates the original vector based on the 
+//vector with repeated bytes, by picking the most
+//recurrent value of each set of repetition
+vector<byte> undo_repeated_bytes(vector<byte> in_vector, uint8_t num_repetitions){
+
+	
+}
+
+
 int main(){
 
 	package pkg;
@@ -562,7 +604,7 @@ int main(){
 	cout << "Size of pkg: " << sizeof(pkg) << "\n";
 	
 	//Package initialization
-	set_mode(&pkg, 3);
+	set_mode(&pkg, 1);
 	set_gps_isValid(&pkg, 6);
 	set_gps_lat(&pkg, 2);
 	set_gps_lng(&pkg, 5);
@@ -614,5 +656,8 @@ int main(){
 		printf("Checksum verification : %d\n", verify_checksum(buffer));
 
 
+	//Testing repeated bytes
+	vector<byte> out_vector = gen_repeated_bytes(byteArr3, 2);
+	vector<byte> out_vector_undo = undo_repeated_bytes(out_vector, 2);
 	return 0;
 }

@@ -84,6 +84,9 @@ cv2.createTrackbar('Max_3','Val',0,255,nothing)
 
 cv2.createTrackbar('0:BGR\n1:HSV\n2:Lab','Val',0,2,nothing)
 
+cv2.createTrackbar('Off/On','Val',0,1,nothing)
+cv2.setTrackbarPos('Off/On','Val',1)
+
 cv2.imshow('Val',bar)
 cv2.moveWindow('Val',0,0)
 set_default(thresh[mode])
@@ -99,7 +102,12 @@ while(running):
 	img=pic.copy()
 	thresh[mode][0]=(cv2.getTrackbarPos('Min_1','Val'),cv2.getTrackbarPos('Min_2','Val'),cv2.getTrackbarPos('Min_3','Val'))
 	thresh[mode][1]=(cv2.getTrackbarPos('Max_1','Val'),cv2.getTrackbarPos('Max_2','Val'),cv2.getTrackbarPos('Max_3','Val'))
+	if(mode==1):
+		thresh[mode][0]=(int(float(thresh[mode][0][0]*180)/255.0),thresh[mode][0][1],thresh[mode][0][2])
+		thresh[mode][1]=(int(float(thresh[mode][1][0]*180)/255.0),thresh[mode][1][1],thresh[mode][1][2])
+	
 	mode=cv2.getTrackbarPos('0:BGR\n1:HSV\n2:Lab','Val')
+	show=cv2.getTrackbarPos('Off/On','Val')
 	if(mode!=last_mode):
 		set_default(thresh[mode])
 		last_mode=mode
@@ -109,8 +117,15 @@ while(running):
 	blur=cv2.GaussianBlur(img,(17,17),0)
 	cnt_blr=process(blur,thresh[mode],mode)
 
-	cv2.drawContours(img, cnt_img,-1,(200,0,35),2)
-	cv2.drawContours(img, cnt_blr,-1,(0,200,35),2)
+	if(show):
+		tmp_1=img.copy()
+		tmp_2=img.copy()
+
+		cv2.drawContours(tmp_1, cnt_img,-1,(200,0,35),-1)
+		cv2.drawContours(tmp_2, cnt_blr,-1,(0,200,35),-1)
+
+		cv2.addWeighted(tmp_1,0.5,tmp_2,0.5,0,tmp_1)
+		cv2.addWeighted(tmp_1,0.6,img,0.4,0,img)
 
 	cv2.imshow('Imagem '+str(i+1)+'/'+str(l),cv2.resize(img,ratio,interpolation=cv2.INTER_NEAREST))
 
@@ -138,6 +153,9 @@ while(running):
 		ratio=get_ratio(pic)
 		cv2.imshow('Imagem '+str(i+1)+'/'+str(l),cv2.resize(pic,ratio,interpolation=cv2.INTER_NEAREST))
 		cv2.moveWindow('Imagem '+str(i+1)+'/'+str(l),520,0)
-
+	elif(k==ord('f')):
+		show+=1
+		show=show%2
+		cv2.setTrackbarPos('Off/On','Val',show)
 	print(time.time()-ticks)
 cv2.destroyAllWindows()

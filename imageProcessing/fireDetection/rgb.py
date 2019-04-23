@@ -17,7 +17,7 @@ def set_default(thresh):
 	cv2.setTrackbarPos('Max_3','Val',thresh[1][2])
 
 #Obtem valor para resize da imagem
-def get_ratio(img):
+def get_ratio(pic):
 	ratio_x=int(pic.shape[1]/800)
 	ratio_y=int(pic.shape[0]/600)
 	if ratio_x>ratio_y:

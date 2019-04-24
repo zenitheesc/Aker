@@ -441,5 +441,39 @@ void CodeGenerator::generate(){
 	this->finish();
 }
 
+	//Setters 
+void CodeGenerator::set_user_choice(int user_choice){
+	this->user_choice = user_choice;
+}
+
+void CodeGenerator::set_modules_ids(int* modules_ids){
+	this->modules_ids = modules_ids;
+}
+
+void CodeGenerator::set_number_of_states(int number_of_states){
+	this->number_of_states = number_of_states;
+}
+
+void CodeGenerator::set_states_functions(int** states_functions){
+	this->states_functions = states_functions;
+}
+
+//Gettes
+int CodeGenerator::get_user_choice(){
+	return this->user_choice;
+}
+
+int* CodeGenerator::get_modules_ids(){
+	return this->modules_ids;
+}
+
+int CodeGenerator::get_number_of_states(){
+	return this->number_of_states;
+}
+
+int** CodeGenerator::get_states_functions(){
+	return this->states_functions;
+}
+
 //Initializes the state machine counter
 int CodeGenerator::curr_state_number = 0;

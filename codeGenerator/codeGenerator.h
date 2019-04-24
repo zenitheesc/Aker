@@ -25,7 +25,7 @@ public:
 
 	//UI Related: stores the command inserted by the user in the menu
 	int user_choice;
-	
+
 	//This function prints the main menu on the console and gets the
 	//the user input that defines to where the interface should go	
 	int ui_initial_menu();
@@ -44,6 +44,24 @@ public:
 	//It encapsulates some other functions of the class and writes
 	//the final version of the generated C++ program
 	void generate();
+
+	//Setters 
+	void set_user_choice(int);
+
+	void set_modules_ids(int*);
+
+	void set_number_of_states(int);
+
+	void set_states_functions(int**);
+
+	//Gettes
+	int get_user_choice();
+
+	int* get_modules_ids();
+
+	int get_number_of_states();
+
+	int** get_states_functions();
 
 private:
 

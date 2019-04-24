@@ -289,67 +289,6 @@ int CodeGenerator::linear_function(int id_functions[]){
 	return 0;
 }
 
-void CodeGenerator::gps_code(){
-
-	//Starts the generated code file
-	ofstream code_file;
-	string code;
-
-	//Open the file to append
-	code_file.open(code_file_name, ios_base::app);
-
-	code = "\n";
-	code = code + "	//Code for the gps\n";
-	code = code + "	set_gps();\n";
-	code = code + "	get_gps();\n";
-	code = code + "\n";
-
-	//Writes to file
-	code_file << code;
-	code_file.close();
-}
-
-void CodeGenerator::bmp_code(){
-
-	//Starts the generated code file
-	ofstream code_file;
-	string code;
-
-	//Open the file to append
-	code_file.open(code_file_name, ios_base::app);
-
-	code = "\n";
-	code = code + "	//Code for the bmp\n";
-	code = code + "	set_bmp();\n";
-	code = code + "	get_bmp();\n";
-	code = code + "\n";
-
-	//Writes to file
-	code_file << code;
-	code_file.close();
-}
-
-void CodeGenerator::comm_code(){
-
-	//Starts the generated code file
-	ofstream code_file;
-	string code;
-
-	//Open the file to append
-	code_file.open(code_file_name, ios_base::app);
-
-	code = "\n";
-	code = code + "	//Code for the communication\n";
-	code = code + "	open_comm();\n";
-	code = code + "	send_data();\n";
-	code = code + "	close_comm();\n";
-	code = code + "\n";
-
-	//Writes to file
-	code_file << code;
-	code_file.close();
-}
-
 void CodeGenerator::initial_setup(){
 
 	//Starts the generated code file

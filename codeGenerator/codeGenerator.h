@@ -41,15 +41,6 @@ public:
 	//Finishes the code
 	void finish();
 
-	//Inclues the functions for the gps
-	void gps_code();
-
-	//Inclues the functions for the bmp
-	void bmp_code();
-
-	//Inclues the functions for the communication
-	void comm_code();
-
 	//Inclues the functions for the system initial setup
 	void initial_setup();
 

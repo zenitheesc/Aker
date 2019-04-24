@@ -17,8 +17,14 @@ typedef struct DATA_BASE_FOR_CODE_GENERATOR {
 class CodeGenerator {
 public:
 
+	int user_choice;
+	int *modules_ids;
+	int number_of_states;
+	int **states_functions;
+
+
 	//Generate the state machine code given the user input
-	int state_machine_code(int ** states_functions,int number_of_states);
+	int state_machine_code();
 
 	//Append functions records into CodeGenerator Functions DataBase
 	void create_functions_database();
@@ -36,13 +42,25 @@ public:
 	int linear_function(int *id_functions);
 
 	//Starts the code
-	int start(int *id_modules);
+	int start();
 
 	//Finishes the code
 	void finish();
 
 	//Inclues the functions for the system initial setup
 	void initial_setup();
+
+	//Inteface functions
+	int ui_initial_menu();
+
+	void ui_create_functions_database();
+
+	void ui_create_modules_database();
+
+	void ui_insert_modules();
+
+	void ui_insert_functions();
+
 
 private:
 	//Current max value of the state machine

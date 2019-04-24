@@ -1,10 +1,7 @@
 #include "codeGenerator.h"
 using namespace std;
 
-int CodeGenerator::state_machine_code(int ** states_functions, int number_of_states){
-
-	CodeGenerator code_gen;
-
+int CodeGenerator::state_machine_code(){
 	//Opens the file
 	ofstream code_file;
 	string code;
@@ -24,7 +21,7 @@ int CodeGenerator::state_machine_code(int ** states_functions, int number_of_sta
 	code_file.close();
 
 	//For each state, calls the linear_function to write it's respective functions
-	for(int i = 0; i < number_of_states; i++){
+	for(int i = 0; i < this->number_of_states; i++){
 
 		code_file.open(code_file_name, ios_base::app);
 
@@ -38,7 +35,7 @@ int CodeGenerator::state_machine_code(int ** states_functions, int number_of_sta
 		code_file.close();
 
 		//Write the linear code state
-		code_gen.linear_function(states_functions[i]);
+		this->linear_function(this->states_functions[i]);
 	}
 
 	//Opens the file
@@ -55,7 +52,7 @@ int CodeGenerator::state_machine_code(int ** states_functions, int number_of_sta
 	return 0;
 }
 
-int CodeGenerator::start(int *id_modules){
+int CodeGenerator::start(){
 
 	//Starts the generated code file
 	ofstream code_file;
@@ -78,8 +75,8 @@ int CodeGenerator::start(int *id_modules){
 	int i = 0;
 	data_base = fopen(modules_data_base_path.c_str(), "rb");
 	if(data_base != 0){
-       while(id_modules[i] != -1){
-			fseek(data_base, (id_modules[i]-1)*sizeof(code_generator_struct), SEEK_SET);
+       while(this->modules_ids[i] != -1){
+			fseek(data_base, (this->modules_ids[i]-1)*sizeof(code_generator_struct), SEEK_SET);
 			fread(&data_for_modules, sizeof(code_generator_struct), 1, data_base);
             s_modules = data_for_modules.name;
 			input_modules = input_modules + "\n";
@@ -307,6 +304,104 @@ void CodeGenerator::initial_setup(){
 	//Writes to file
 	code_file << code;
 	code_file.close();
+}
+
+//Inteface functions
+int CodeGenerator::ui_initial_menu(){
+
+	int user_choice;
+
+	system("clear");
+	cout << "=================================================" << endl;
+	cout << "=              Aker - Code Generator            =" << endl;
+	cout << "=================================================" << endl;
+	cout << "  Choose one option:                             " << endl;
+	cout << "    1. Register one function;                    " << endl;
+	cout << "    2. Register one module;                      " << endl;
+	cout << "    3. Generate code;                            " << endl;
+	cout << "    4. Exit;                                     " << endl;
+	cout << "  Your choice: ";
+	cin  >>  user_choice;
+
+	this->user_choice = user_choice;
+}
+
+void CodeGenerator::ui_create_functions_database(){
+	system("clear");
+	cout << "=================================================" << endl;
+	cout << "=              Aker - Code Generator            =" << endl;
+	cout << "=================================================" << endl;
+	this->create_functions_database();
+
+}
+
+void CodeGenerator::ui_create_modules_database(){
+	system("clear");
+	cout << "=================================================" << endl;
+	cout << "=              Aker - Code Generator            =" << endl;
+	cout << "=================================================" << endl;
+	this->create_modules_database();
+
+}
+
+void CodeGenerator::ui_insert_modules(){
+
+	int number_of_modules;
+	int *modules_ids;
+
+	system("clear");
+	cout << "=================================================" << endl;
+	cout << "=              Aker - Code Generator            =" << endl;
+	cout << "=================================================" << endl;
+	cout << "  How many modules do you want?                  " << endl;
+
+	cin  >> number_of_modules;
+	modules_ids = (int*)malloc((number_of_modules+1)*sizeof(int));
+	*(modules_ids + number_of_modules) = -1;
+	cout << "  Entry modules IDs:                           " << endl;
+	for(int i = 0; i<number_of_modules ; i++){
+		cin  >> *(modules_ids + i);
+	}
+
+	this->modules_ids = modules_ids;
+}
+
+void CodeGenerator::ui_insert_functions(){
+
+	int number_of_states;
+	int **states_functions;
+	int number_of_functions;
+
+	system("clear");
+	cout << "=================================================" << endl;
+	cout << "=              Aker - Code Generator            =" << endl;
+	cout << "=================================================" << endl;
+	cout << "  How many states do you want?                  " << endl;
+
+	cin  >> number_of_states;
+	this->number_of_states = number_of_states;
+	//allocates memory for the states_function** rows
+	states_functions = (int**)malloc(number_of_states*sizeof(int*));
+
+	//For each state, read its functions
+	for(int i = 0; i<number_of_states ; i++){
+		system("clear");
+		cout << "=================================================" << endl;
+		cout << "=              Aker - Code Generator            =" << endl;
+		cout << "=================================================" << endl;
+		cout << "  How many functions do you want in state " << i << "?" << endl;								
+		cin  >> number_of_functions;
+		//allocates memory for the states_functions** cols
+		states_functions[i] = (int*)
+							malloc((number_of_functions+1)*sizeof(int));
+		*(states_functions[i] + number_of_functions) = -1;
+		cout << "  Entry functions IDs:                           " << endl;
+		for(int j = 0; j<number_of_functions ; j++){
+				cin  >> states_functions[i][j];
+		}
+	}
+
+	this->states_functions = states_functions;
 }
 
 //Initializes the state machine counter

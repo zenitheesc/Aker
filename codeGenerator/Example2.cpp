@@ -22,16 +22,7 @@ int main(){
 					}
 					case 3:{
 							
-							code_gen.ui_insert_modules();
-
-							code_gen.ui_insert_functions();
-
-							//Starts the code
-							code_gen.start();
-							//Write the  code
-							code_gen.state_machine_code();
-							//Finishes the code
-							code_gen.finish();
+							code_gen.generate();
 
 							break;
 					}

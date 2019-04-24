@@ -423,5 +423,23 @@ void CodeGenerator::ui_insert_functions(){
 	this->states_functions = states_functions;
 }
 
+void CodeGenerator::generate(){
+
+	//Insert modules
+	this->ui_insert_modules();
+
+	//Insert functions
+	this->ui_insert_functions();
+
+	//Starts the code
+	this->start();
+	
+	//Write the  code
+	this->state_machine_code();
+							
+	//Finishes the code
+	this->finish();
+}
+
 //Initializes the state machine counter
 int CodeGenerator::curr_state_number = 0;

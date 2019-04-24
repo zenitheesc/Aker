@@ -3,6 +3,7 @@
 
 #include<teste_module.h>
 #include<teste_module_2.h>
+#include<test_module_3.h>
 
 using namespace std;
 
@@ -18,17 +19,20 @@ switch(state){
     float b
     teste_1(a, b);
 
-    a a
-    teste_2(a);
+    char a
+    teste_3(a);
 
 	case '1':
 
-    a a
-    teste_2(a);
+    char a
+    teste_3(a);
 
     int a
     float b
     teste_1(a, b);
+
+    a a
+    teste_2(a);
 
     }
 

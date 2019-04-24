@@ -307,39 +307,52 @@ void CodeGenerator::initial_setup(){
 }
 
 //Inteface functions
+
 int CodeGenerator::ui_initial_menu(){
 
 	int user_choice;
 
+	//Prints the menu
 	system("clear");
 	cout << "=================================================" << endl;
 	cout << "=              Aker - Code Generator            =" << endl;
 	cout << "=================================================" << endl;
-	cout << "  Choose one option:                             " << endl;
-	cout << "    1. Register one function;                    " << endl;
-	cout << "    2. Register one module;                      " << endl;
+	cout << "  Choose an option:                             " << endl;
+	cout << "    1. Register a function;                    " << endl;
+	cout << "    2. Register a module;                      " << endl;
 	cout << "    3. Generate code;                            " << endl;
 	cout << "    4. Exit;                                     " << endl;
 	cout << "  Your choice: ";
+
+	//Reads the user choice
 	cin  >>  user_choice;
 
+	//Updates the class attribute with the user choice
 	this->user_choice = user_choice;
 }
 
 void CodeGenerator::ui_create_functions_database(){
+
+	//Prints the header
 	system("clear");
 	cout << "=================================================" << endl;
 	cout << "=              Aker - Code Generator            =" << endl;
 	cout << "=================================================" << endl;
+
+	//Calls the function that creates the functions database
 	this->create_functions_database();
 
 }
 
 void CodeGenerator::ui_create_modules_database(){
+
+	//Prints the interface
 	system("clear");
 	cout << "=================================================" << endl;
 	cout << "=              Aker - Code Generator            =" << endl;
 	cout << "=================================================" << endl;
+
+	//Calls the functions that creates the modules database
 	this->create_modules_database();
 
 }
@@ -349,12 +362,14 @@ void CodeGenerator::ui_insert_modules(){
 	int number_of_modules;
 	int *modules_ids;
 
+	//Prints the interface
 	system("clear");
 	cout << "=================================================" << endl;
 	cout << "=              Aker - Code Generator            =" << endl;
 	cout << "=================================================" << endl;
 	cout << "  How many modules do you want?                  " << endl;
 
+	//Handles the reading of the modules IDs
 	cin  >> number_of_modules;
 	modules_ids = (int*)malloc((number_of_modules+1)*sizeof(int));
 	*(modules_ids + number_of_modules) = -1;
@@ -372,12 +387,14 @@ void CodeGenerator::ui_insert_functions(){
 	int **states_functions;
 	int number_of_functions;
 
+	//Prints the interface for the state machine
 	system("clear");
 	cout << "=================================================" << endl;
 	cout << "=              Aker - Code Generator            =" << endl;
 	cout << "=================================================" << endl;
 	cout << "  How many states do you want?                  " << endl;
 
+	//Reads the number of states that the program will have
 	cin  >> number_of_states;
 	this->number_of_states = number_of_states;
 	//allocates memory for the states_function** rows
@@ -385,6 +402,8 @@ void CodeGenerator::ui_insert_functions(){
 
 	//For each state, read its functions
 	for(int i = 0; i<number_of_states ; i++){
+
+		//Prints the interface for adding functions to the states
 		system("clear");
 		cout << "=================================================" << endl;
 		cout << "=              Aker - Code Generator            =" << endl;

@@ -127,7 +127,7 @@ void CodeGenerator::finish(){
 	code_file.close();
 }
 
-void CodeGenerator::create_functions_database(){
+void CodeGenerator::console_create_functions_database(){
 
     CodeGenerator code_gen;
     code_generator_struct new_m; //Struct that receives new function data
@@ -143,6 +143,9 @@ void CodeGenerator::create_functions_database(){
     	cout << endl << "    Put function name: ";
     	cin.getline(new_m.name, 100);
     }
+
+    cout << endl << "    Put function return type: ";
+    cin.getline(new_m.return_type, 100);
 
     cout << endl << "	Put the number of parameters: ";
     cin >> new_m.number_of_parameters;
@@ -185,7 +188,7 @@ int CodeGenerator::check_function_name(char* name){
 }
 
 
-void CodeGenerator::create_modules_database(){
+void CodeGenerator::console_create_modules_database(){
    
     code_generator_struct new_f; //Struct that receives new function data
     FILE *data_base; //Pointer to data_base file
@@ -251,9 +254,12 @@ int CodeGenerator::linear_function(int id_functions[]){
 				//Type
 				linear_functions =  linear_functions + data_for_functions.param_types[j] + " ";
 				//Name
-				linear_functions = linear_functions + data_for_functions.param_names[j] + "\n    ";
+				linear_functions = linear_functions + data_for_functions.param_names[j] + ";\n    ";
 			}
 
+			//Write the return variable
+			linear_functions = linear_functions + data_for_functions.return_type + " " + data_for_functions.name + "_"
+				+ "return = ";
 
 			linear_functions = linear_functions + s_functions + "(";
 			
@@ -262,13 +268,11 @@ int CodeGenerator::linear_function(int id_functions[]){
 				//Name
 				linear_functions = linear_functions + data_for_functions.param_names[j];
 
-				if(j == data_for_functions.number_of_parameters - 1){
-					linear_functions = linear_functions + ");\n";
-				}
-				else{
+				if(j < data_for_functions.number_of_parameters - 1){
 					linear_functions = linear_functions + ", ";
 				}
 			}
+			linear_functions = linear_functions + ");\n";
 
             s_functions = "";
 					i++;
@@ -308,7 +312,7 @@ void CodeGenerator::initial_setup(){
 
 //Inteface functions
 
-int CodeGenerator::ui_initial_menu(){
+int CodeGenerator::console_initial_menu(){
 
 	int user_choice;
 
@@ -331,7 +335,7 @@ int CodeGenerator::ui_initial_menu(){
 	this->user_choice = user_choice;
 }
 
-void CodeGenerator::ui_create_functions_database(){
+void CodeGenerator::console_new_function(){
 
 	//Prints the header
 	system("clear");
@@ -340,11 +344,11 @@ void CodeGenerator::ui_create_functions_database(){
 	cout << "=================================================" << endl;
 
 	//Calls the function that creates the functions database
-	this->create_functions_database();
+	this->console_create_functions_database();
 
 }
 
-void CodeGenerator::ui_create_modules_database(){
+void CodeGenerator::console_new_module(){
 
 	//Prints the interface
 	system("clear");
@@ -353,11 +357,11 @@ void CodeGenerator::ui_create_modules_database(){
 	cout << "=================================================" << endl;
 
 	//Calls the functions that creates the modules database
-	this->create_modules_database();
+	this->console_create_modules_database();
 
 }
 
-void CodeGenerator::ui_insert_modules(){
+void CodeGenerator::console_insert_modules(){
 
 	int number_of_modules;
 	int *modules_ids;
@@ -381,7 +385,7 @@ void CodeGenerator::ui_insert_modules(){
 	this->modules_ids = modules_ids;
 }
 
-void CodeGenerator::ui_insert_functions(){
+void CodeGenerator::console_insert_functions(){
 
 	int number_of_states;
 	int **states_functions;
@@ -423,13 +427,100 @@ void CodeGenerator::ui_insert_functions(){
 	this->states_functions = states_functions;
 }
 
-void CodeGenerator::generate(){
+void CodeGenerator::ui_initial_menu(int user_choice){
+	this->set_user_choice(user_choice);
+}
+
+void CodeGenerator::ui_new_function(int function_id, char* function_name, char* return_type,
+												int number_of_parameters, char** param_types_list, 
+												char** param_names_list){
+
+	this->set_function_id(function_id);
+	this->set_function_name(function_name);
+	this->set_return_type(return_type);
+	this->set_number_of_parameters(number_of_parameters);
+	this->set_param_types_list(param_types_list);
+	this->set_param_names_list(param_names_list);
+
+	this->ui_create_functions_database();
+
+}
+
+void CodeGenerator::ui_new_module(int module_id, char* module_name){
+
+	this->set_module_id(module_id);
+	this->set_module_name(module_name);
+
+	this->ui_create_modules_database();
+}
+
+void CodeGenerator::ui_insert_modules(int number_of_modules, int* modules_ids){
+	this->number_of_modules = number_of_modules;
+	this->modules_ids = modules_ids;
+}
+
+void CodeGenerator::ui_insert_functions(int number_of_states, int **states_functions){
+	this->number_of_states = number_of_states;
+	this->states_functions = states_functions;
+}
+
+void CodeGenerator::ui_create_functions_database(){
+    code_generator_struct new_m; //Struct that receives new function data
+    FILE *data_base; //Pointer to data_base file
+    new_m.id = this->function_id;
+    strcpy(new_m.name, this->function_name);
+    new_m.number_of_parameters = this->number_of_parameters;
+    for(int i = 0; i <sizeof param_types_list / sizeof param_types_list[0]; i++){
+ 		strcpy(new_m.param_types[i], this->param_types_list[i]);
+ 	}
+ 	for(int i = 0; i <sizeof param_names_list / sizeof param_names_list[0]; i++){
+ 		strcpy(new_m.param_names[i], this->param_names_list[i]);
+ 	}
+
+    data_base = fopen(functions_data_base_path.c_str(), "r+b");
+    fseek(data_base, (new_m.id-1)*sizeof(code_generator_struct), SEEK_SET);
+    fwrite(&new_m, sizeof(code_generator_struct), 1, data_base);
+    fclose(data_base);
+}
+
+void CodeGenerator::ui_create_modules_database(){
+	code_generator_struct new_f; //Struct that receives new module data
+    FILE *data_base; //Pointer to data_base file
+    new_f.id = this->module_id;
+    strcpy(new_f.name, this->module_name);
+
+    data_base = fopen(modules_data_base_path.c_str(), "r+b");
+    fseek(data_base, (new_f.id-1)*sizeof(code_generator_struct), SEEK_SET);
+    fwrite(&new_f, sizeof(code_generator_struct), 1, data_base);
+    fclose(data_base);
+}
+
+void CodeGenerator::console_generate(){
 
 	//Insert modules
-	this->ui_insert_modules();
+	this->console_insert_modules();
 
 	//Insert functions
-	this->ui_insert_functions();
+	this->console_insert_functions();
+
+	//Starts the code
+	this->start();
+	
+	//Write the  code
+	this->state_machine_code();
+							
+	//Finishes the code
+	this->finish();
+}
+
+void CodeGenerator::ui_generate(int number_of_modules, int* modules_ids,
+	 int number_of_states, int **states_functions){
+
+	//Insert modules
+	this->ui_insert_modules(number_of_modules, modules_ids);
+
+	//Insert functions
+	this->ui_insert_functions(number_of_states, states_functions);
 
 	//Starts the code
 	this->start();
@@ -458,6 +549,46 @@ void CodeGenerator::set_states_functions(int** states_functions){
 	this->states_functions = states_functions;
 }
 
+void CodeGenerator::set_function_id(int function_id){
+	this->function_id = function_id;
+}
+
+void CodeGenerator::set_function_name(char* function_name){
+	strcpy(this->function_name, function_name);
+}
+
+void CodeGenerator::set_return_type(char* return_type){
+	strcpy(this->return_type, return_type);
+}
+
+void CodeGenerator::set_number_of_parameters(int number_of_parameters){
+	this->number_of_parameters = number_of_parameters;
+}
+
+void CodeGenerator::set_param_types_list(char** param_types_list){
+	for(int i = 0; i <(sizeof(param_types_list)/sizeof(param_types_list[0])); i++){
+ 		strcpy(this->param_types_list[i], param_types_list[i]);
+ 	}
+}
+
+void CodeGenerator::set_param_names_list(char** param_names_list){
+	for(int i = 0; i <(sizeof(param_names_list)/sizeof(param_names_list[0])); i++){
+ 		strcpy(this->param_names_list[i], param_names_list[i]);
+ 	}
+}
+
+void CodeGenerator::set_module_id(int module_id){
+	this->module_id = module_id;
+}
+
+void CodeGenerator::set_module_name(char* module_name){
+	strcpy(this->module_name, module_name);
+}
+
+void CodeGenerator::set_number_of_modules(int number_of_modules){
+	this->number_of_modules = number_of_modules;
+}
+
 //Gettes
 int CodeGenerator::get_user_choice(){
 	return this->user_choice;
@@ -473,6 +604,52 @@ int CodeGenerator::get_number_of_states(){
 
 int** CodeGenerator::get_states_functions(){
 	return this->states_functions;
+}
+
+int CodeGenerator::get_function_id(){
+	return this->function_id;
+}
+
+char* CodeGenerator::get_function_name(){
+	return this->function_name;
+}
+
+char* CodeGenerator::get_return_type(){
+	return this->return_type;
+}
+
+int CodeGenerator::get_number_of_parameters(){
+	return this->number_of_parameters;
+}
+
+char** CodeGenerator::get_param_types_list(){
+	char** param_types_list = (char **) malloc((sizeof(this->param_types_list)/sizeof(this->param_types_list)) * 
+												sizeof(char *));
+	for(int i = 0; i < (sizeof(this->param_types_list)/sizeof(this->param_types_list)); i++){
+		param_types_list[i] = this->param_types_list[i];
+	}
+	return param_types_list;
+}
+
+char** CodeGenerator::get_param_names_list(){
+	char** param_names_list = (char **) malloc((sizeof(this->param_names_list)/sizeof(this->param_names_list)) * 
+												sizeof(char *));
+	for(int i = 0; i < (sizeof(this->param_names_list)/sizeof(this->param_names_list)); i++){
+		param_names_list[i] = this->param_names_list[i];
+	}
+	return param_names_list;
+}
+
+int CodeGenerator::get_module_id(){
+	return this->module_id;
+}
+
+char* CodeGenerator::get_module_name(){
+	return this->module_name;
+}
+
+int CodeGenerator::get_number_of_modules(){
+	return this->number_of_modules;
 }
 
 //Initializes the state machine counter

@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <addfunc.h>
+#include <addmodule.h>
 
 namespace Ui {
 class MDE;
@@ -16,17 +17,17 @@ public:
     explicit MDE(QWidget *parent = nullptr);
 
     addFunc *function;
+    addModule *module;
 
     ~MDE();
 
 private slots:
-    void on_pushButton_clicked();
-
-    void on_pushButton_4_clicked();
 
     void on_pbAddFunction_clicked();
 
     void on_pbExit_clicked();
+
+    void on_pbAddModule_clicked();
 
 private:
     Ui::MDE *ui;

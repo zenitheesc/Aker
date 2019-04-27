@@ -19,7 +19,6 @@
 #include <QtWidgets/QMenu>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
-#include <QtWidgets/QTextBrowser>
 #include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -35,10 +34,11 @@ public:
     QAction *actionTutorials;
     QAction *actionContact;
     QWidget *centralwidget;
-    QLabel *zenithLogo;
-    QTextBrowser *textBrowser;
-    QLabel *label_2;
-    QPushButton *pushButton;
+    QLabel *vMdeLogo;
+    QPushButton *pbAddFunction;
+    QPushButton *pbAddModule;
+    QPushButton *pbGenerate;
+    QPushButton *pbExit;
     QMenuBar *menubar;
     QMenu *menuFile;
     QMenu *menuLibraries;
@@ -48,7 +48,7 @@ public:
     {
         if (MDE->objectName().isEmpty())
             MDE->setObjectName(QStringLiteral("MDE"));
-        MDE->resize(700, 500);
+        MDE->resize(557, 351);
         MDE->setStyleSheet(QStringLiteral("background-color: rgb(46, 52, 54);"));
         actionGeneral_Infos = new QAction(MDE);
         actionGeneral_Infos->setObjectName(QStringLiteral("actionGeneral_Infos"));
@@ -66,38 +66,50 @@ public:
         actionContact->setObjectName(QStringLiteral("actionContact"));
         centralwidget = new QWidget(MDE);
         centralwidget->setObjectName(QStringLiteral("centralwidget"));
-        zenithLogo = new QLabel(centralwidget);
-        zenithLogo->setObjectName(QStringLiteral("zenithLogo"));
-        zenithLogo->setGeometry(QRect(50, 140, 341, 161));
-        textBrowser = new QTextBrowser(centralwidget);
-        textBrowser->setObjectName(QStringLiteral("textBrowser"));
-        textBrowser->setGeometry(QRect(410, 140, 251, 161));
-        textBrowser->setStyleSheet(QLatin1String("color: rgb(186, 189, 182);\n"
-"background-color: rgb(46, 52, 54);\n"
-"alternate-background-color: rgb(85, 87, 83);\n"
-"border-color: rgb(46, 52, 54);"));
-        textBrowser->setFrameShape(QFrame::NoFrame);
-        textBrowser->setFrameShadow(QFrame::Plain);
-        textBrowser->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-        textBrowser->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-        textBrowser->setSizeAdjustPolicy(QAbstractScrollArea::AdjustToContents);
-        textBrowser->setTabChangesFocus(false);
-        textBrowser->setLineWrapMode(QTextEdit::WidgetWidth);
-        textBrowser->setLineWrapColumnOrWidth(0);
-        textBrowser->setOpenLinks(false);
-        label_2 = new QLabel(centralwidget);
-        label_2->setObjectName(QStringLiteral("label_2"));
-        label_2->setGeometry(QRect(410, 60, 231, 41));
-        label_2->setStyleSheet(QLatin1String("color: rgb(238, 238, 236);\n"
-"font: 75 italic 27pt \"Courier 10 Pitch\";"));
-        label_2->setAlignment(Qt::AlignCenter);
-        pushButton = new QPushButton(centralwidget);
-        pushButton->setObjectName(QStringLiteral("pushButton"));
-        pushButton->setGeometry(QRect(450, 320, 191, 25));
+        vMdeLogo = new QLabel(centralwidget);
+        vMdeLogo->setObjectName(QStringLiteral("vMdeLogo"));
+        vMdeLogo->setGeometry(QRect(110, 120, 341, 181));
+        vMdeLogo->setPixmap(QPixmap(QString::fromUtf8("../MDELOGO.png")));
+        pbAddFunction = new QPushButton(centralwidget);
+        pbAddFunction->setObjectName(QStringLiteral("pbAddFunction"));
+        pbAddFunction->setGeometry(QRect(30, 7, 241, 41));
+        pbAddFunction->setStyleSheet(QLatin1String("background-color: rgb(85, 87, 83);\n"
+"color: rgb(238, 238, 236);\n"
+"font: 14pt \"Courier 10 Pitch\";\n"
+"alternate-background-color: rgb(136, 138, 133);\n"
+"border-right-color: rgb(0, 0, 0);\n"
+"border-bottom-color: rgb(0, 0, 0);"));
+        pbAddModule = new QPushButton(centralwidget);
+        pbAddModule->setObjectName(QStringLiteral("pbAddModule"));
+        pbAddModule->setGeometry(QRect(290, 10, 241, 41));
+        pbAddModule->setStyleSheet(QLatin1String("background-color: rgb(85, 87, 83);\n"
+"color: rgb(238, 238, 236);\n"
+"font: 14pt \"Courier 10 Pitch\";\n"
+"alternate-background-color: rgb(136, 138, 133);\n"
+"border-right-color: rgb(0, 0, 0);\n"
+"border-bottom-color: rgb(0, 0, 0);"));
+        pbGenerate = new QPushButton(centralwidget);
+        pbGenerate->setObjectName(QStringLiteral("pbGenerate"));
+        pbGenerate->setGeometry(QRect(30, 60, 241, 41));
+        pbGenerate->setStyleSheet(QLatin1String("background-color: rgb(85, 87, 83);\n"
+"color: rgb(238, 238, 236);\n"
+"font: 14pt \"Courier 10 Pitch\";\n"
+"alternate-background-color: rgb(136, 138, 133);\n"
+"border-right-color: rgb(0, 0, 0);\n"
+"border-bottom-color: rgb(0, 0, 0);"));
+        pbExit = new QPushButton(centralwidget);
+        pbExit->setObjectName(QStringLiteral("pbExit"));
+        pbExit->setGeometry(QRect(290, 60, 241, 41));
+        pbExit->setStyleSheet(QLatin1String("background-color: rgb(85, 87, 83);\n"
+"color: rgb(238, 238, 236);\n"
+"font: 14pt \"Courier 10 Pitch\";\n"
+"alternate-background-color: rgb(136, 138, 133);\n"
+"border-right-color: rgb(0, 0, 0);\n"
+"border-bottom-color: rgb(0, 0, 0);"));
         MDE->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MDE);
         menubar->setObjectName(QStringLiteral("menubar"));
-        menubar->setGeometry(QRect(0, 0, 700, 22));
+        menubar->setGeometry(QRect(0, 0, 557, 26));
         menuFile = new QMenu(menubar);
         menuFile->setObjectName(QStringLiteral("menuFile"));
         menuLibraries = new QMenu(menubar);
@@ -132,19 +144,11 @@ public:
         actionAker_Documentation->setText(QApplication::translate("MDE", "Aker Documentation", Q_NULLPTR));
         actionTutorials->setText(QApplication::translate("MDE", "Tutorials", Q_NULLPTR));
         actionContact->setText(QApplication::translate("MDE", "Contact", Q_NULLPTR));
-        zenithLogo->setText(QString());
-        textBrowser->setHtml(QApplication::translate("MDE", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:'Ubuntu'; font-size:11pt; font-weight:400; font-style:normal;\">\n"
-"<p align=\"justify\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:12pt;\">High Altitud Balloons (HAB's)</span></p>\n"
-"<p align=\"justify\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:12pt;\">- General Command and Data Handling functions</span></p>\n"
-"<p align=\"justify\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:12pt;\">- Telecommunications handler</span></p>\n"
-"<p align=\"justify\" styl"
-                        "e=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:12pt;\">- Power Supply management and monitor</span></p>\n"
-"<p align=\"justify\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:12pt;\">- Multisensor handler and checker</span></p></body></html>", Q_NULLPTR));
-        label_2->setText(QApplication::translate("MDE", "HAB's", Q_NULLPTR));
-        pushButton->setText(QApplication::translate("MDE", "Start a HAB project", Q_NULLPTR));
+        vMdeLogo->setText(QString());
+        pbAddFunction->setText(QApplication::translate("MDE", "Add Function", Q_NULLPTR));
+        pbAddModule->setText(QApplication::translate("MDE", "Add Module", Q_NULLPTR));
+        pbGenerate->setText(QApplication::translate("MDE", "Generate Code", Q_NULLPTR));
+        pbExit->setText(QApplication::translate("MDE", "Exit", Q_NULLPTR));
         menuFile->setTitle(QApplication::translate("MDE", "File", Q_NULLPTR));
         menuLibraries->setTitle(QApplication::translate("MDE", "Libraries", Q_NULLPTR));
         menuHelp->setTitle(QApplication::translate("MDE", "Help", Q_NULLPTR));

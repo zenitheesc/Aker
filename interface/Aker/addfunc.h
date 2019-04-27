@@ -2,7 +2,6 @@
 #define ADDFUNC_H
 
 #include <QMainWindow>
-#include <eachparam.h>
 
 namespace Ui {
 class addFunc;
@@ -16,17 +15,22 @@ public:
     explicit addFunc(QWidget *parent = nullptr);
     ~addFunc();
 
-    int Par = 0;
+    int function_id;
+    char *function_name;
+    char *return_type;
+    int number_of_parameters;
+    char **param_types_list;
+    char **param_names_list;
 
-    int getPar();
-
-    QString param_types[10];
-    QString param_names[10];
+    int get_function_id();
+    char* get_function_name();
+    char* get_return_type();
+    int get_number_of_parameters();
+    char** get_param_types_list();
+    char** get_param_names_list();
 
 
 private slots:
-    void on_pushButton_clicked();
-
     void on_pbOk_clicked();
 
 private:

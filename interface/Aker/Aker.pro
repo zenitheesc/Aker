@@ -32,7 +32,8 @@ SOURCES += \
     ma.cpp \
     missioninfo.cpp \
     addfunc.cpp \
-    eachparam.cpp
+    codegenerator.cpp \
+    addmodule.cpp
 
 HEADERS += \
         firstmenu.h \
@@ -41,7 +42,8 @@ HEADERS += \
     ma.h \
     missioninfo.h \
     addfunc.h \
-    eachparam.h
+    codegenerator.h \
+    addmodule.h
 
 FORMS += \
         firstmenu.ui \
@@ -50,7 +52,7 @@ FORMS += \
     ma.ui \
     missioninfo.ui \
     addfunc.ui \
-    eachparam.ui
+    addmodule.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

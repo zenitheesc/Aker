@@ -1,16 +1,13 @@
 #include "mde.h"
 #include "ui_mde.h"
-#include <QPixmap>
+#include "addfunc.h"
+#include <QtDebug>
+
 MDE::MDE(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MDE)
 {
     ui->setupUi(this);
-    QPixmap zenithLogo(":/resources/Images/Logo.png");
-    int logoW = ui->zenithLogo->width();
-    int logoH = ui->zenithLogo->height();
-    ui->zenithLogo->setPixmap(zenithLogo.scaled(logoW,logoH,Qt::KeepAspectRatio));
-
 }
 
 MDE::~MDE()
@@ -18,7 +15,16 @@ MDE::~MDE()
     delete ui;
 }
 
-void MDE::on_pushButton_clicked()
+void MDE::on_pbAddFunction_clicked()
 {
+    hide(); //To hide the main window
+    function = new addFunc(this);
+    function->show();
+}
+
+void MDE::on_pbExit_clicked()
+{
+    parentWidget()->show();
+    this->close();
 
 }

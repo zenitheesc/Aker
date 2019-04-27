@@ -1,0 +1,14 @@
+release/main.o
+release/firstmenu.o
+release/mde.o
+release/mm.o
+release/ma.o
+release/missioninfo.o
+release/addfunc.o
+release/qrc_resources.o
+release/moc_firstmenu.o
+release/moc_mde.o
+release/moc_mm.o
+release/moc_ma.o
+release/moc_missioninfo.o
+release/moc_addfunc.o

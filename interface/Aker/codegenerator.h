@@ -1,0 +1,4 @@
+#ifndef CODEGENERATOR_H
+#define CODEGENERATOR_H
+
+#endif // CODEGENERATOR_H

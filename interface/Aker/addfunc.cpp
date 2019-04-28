@@ -49,6 +49,10 @@ char** addFunc::get_param_names_list(){
     return param_names_list;
 }
 
+char* addFunc::get_module_of_function(){
+    return this->module_of_function;
+}
+
 void addFunc::on_pbOk_clicked()
 {
     CodeGenerator code_gen;
@@ -60,6 +64,12 @@ void addFunc::on_pbOk_clicked()
     funcNameQString = ui->vFuncName->text();
     funcNameCString = funcNameQString.toStdString();
     this->function_name = const_cast<char*>(funcNameCString.c_str());
+
+    QString funcModuleOfFunctionQString;
+    string funcModuleOfFunctionCString;
+    funcModuleOfFunctionQString = ui->vModuleOfFunction->text();
+    funcModuleOfFunctionCString = funcModuleOfFunctionQString.toStdString();
+    this->module_of_function = const_cast<char*>(funcModuleOfFunctionCString.c_str());
 
     QString funcRetTypeQString;
     string funcRetTypeCString;
@@ -110,7 +120,8 @@ void addFunc::on_pbOk_clicked()
         this->param_names_list[i] = const_cast<char*>(paramNamesAsCString[i].c_str());
     }
 
-    code_gen.ui_new_function(this->function_id, this->function_name, this->return_type, this->number_of_parameters,
+    code_gen.ui_new_function(this->function_id, this->function_name, this->module_of_function,
+                             this->return_type, this->number_of_parameters,
                              this->param_types_list, this->param_names_list);
 
     parentWidget()->show();

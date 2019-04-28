@@ -21,6 +21,7 @@ public:
     int number_of_parameters;
     char **param_types_list;
     char **param_names_list;
+    char *module_of_function;
 
     int get_function_id();
     char* get_function_name();
@@ -28,7 +29,7 @@ public:
     int get_number_of_parameters();
     char** get_param_types_list();
     char** get_param_names_list();
-
+    char* get_module_of_function();
 
 private slots:
     void on_pbOk_clicked();

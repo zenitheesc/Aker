@@ -23,6 +23,9 @@ char* addModule::get_module_name(){
 }
 
 
+char* addModule::get_module_classifier(){
+    return this->module_classifier;
+}
 
 void addModule::on_pbOk_clicked()
 {
@@ -36,7 +39,13 @@ void addModule::on_pbOk_clicked()
     moduleNameCString = moduleNameQString.toStdString();
     this->module_name = const_cast<char*>(moduleNameCString.c_str());
 
-    code_gen.ui_new_module(this->module_id, this->module_name);
+    QString moduleClassifierQString;
+    string moduleClassifierCString;
+    moduleClassifierQString = ui->vModuleClassifier->text();
+    moduleClassifierCString = moduleClassifierQString.toStdString();
+    this->module_classifier = const_cast<char*>(moduleClassifierCString.c_str());
+
+    code_gen.ui_new_module(this->module_id, this->module_name, this->module_classifier);
 
     parentWidget()->show();
     this->hide();

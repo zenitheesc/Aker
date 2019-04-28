@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>221</width>
-    <height>151</height>
+    <height>175</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -23,7 +23,7 @@
       <x>10</x>
       <y>0</y>
       <width>205</width>
-      <height>99</height>
+      <height>129</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
@@ -74,6 +74,35 @@ border-bottom-color: rgb(0, 0, 0);</string>
        </item>
        <item>
         <widget class="QLineEdit" name="vModuleName">
+         <property name="styleSheet">
+          <string notr="true">color: rgb(238, 238, 236);
+font: 10pt &quot;Courier 10 Pitch&quot;;
+alternate-background-color: rgb(136, 138, 133);
+border-right-color: rgb(0, 0, 0);
+border-bottom-color: rgb(0, 0, 0);</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_3">
+       <item>
+        <widget class="QLabel" name="label_4">
+         <property name="styleSheet">
+          <string notr="true">color: rgb(238, 238, 236);
+font: 10pt &quot;Courier 10 Pitch&quot;;
+alternate-background-color: rgb(136, 138, 133);
+border-right-color: rgb(0, 0, 0);
+border-bottom-color: rgb(0, 0, 0);</string>
+         </property>
+         <property name="text">
+          <string>Classifier</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="vModuleClassifier">
          <property name="styleSheet">
           <string notr="true">color: rgb(238, 238, 236);
 font: 10pt &quot;Courier 10 Pitch&quot;;

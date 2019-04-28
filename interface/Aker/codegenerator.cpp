@@ -1,8 +1,9 @@
 #include "codegenerator.h"
 #include "qdebug.h"
+
 using namespace std;
 
-int CodeGenerator::state_machine_code(){
+int CodeGenerator::console_state_machine_code(){
     //Opens the file
     ofstream code_file;
     string code;
@@ -36,7 +37,7 @@ int CodeGenerator::state_machine_code(){
         code_file.close();
 
         //Write the linear code state
-        this->linear_function(this->states_functions[i]);
+        this->console_linear_function(this->states_functions[i]);
     }
 
     //Opens the file
@@ -53,7 +54,7 @@ int CodeGenerator::state_machine_code(){
     return 0;
 }
 
-int CodeGenerator::start(){
+int CodeGenerator::console_start(){
 
     //Starts the generated code file
     ofstream code_file;
@@ -145,6 +146,10 @@ void CodeGenerator::console_create_functions_database(){
         cin.getline(new_m.name, 100);
     }
 
+
+    cout << "    	Put the name of the module that this function belongs to: ";
+    cin.getline(new_m.module_of_function, 100);
+
     cout << endl << "    Put function return type: ";
     cin.getline(new_m.return_type, 100);
 
@@ -206,6 +211,9 @@ void CodeGenerator::console_create_modules_database(){
         cin >> new_f.name;
     }
 
+    cout << endl << "    Put module classifier: ";
+    cin.getline(new_f.module_classifier, 100);
+
     data_base = fopen(modules_data_base_path.c_str(), "r+b");
     fseek(data_base, (new_f.id-1)*sizeof(code_generator_struct), SEEK_SET);
     fwrite(&new_f, sizeof(code_generator_struct), 1, data_base);
@@ -233,7 +241,7 @@ int CodeGenerator::check_module_name(char* name){
 
 }
 
-int CodeGenerator::linear_function(int id_functions[]){
+int CodeGenerator::console_linear_function(int id_functions[]){
 
     FILE * data_base;
     ofstream code_file;
@@ -432,12 +440,13 @@ void CodeGenerator::ui_initial_menu(int user_choice){
     this->set_user_choice(user_choice);
 }
 
-void CodeGenerator::ui_new_function(int function_id, char* function_name, char* return_type,
+void CodeGenerator::ui_new_function(int function_id, char* function_name, char* module_of_function, char* return_type,
                                                 int number_of_parameters, char** param_types_list,
                                                 char** param_names_list){
 
     this->set_function_id(function_id);
     this->set_function_name(function_name);
+    this->set_module_of_function(module_of_function);
     this->set_return_type(return_type);
     this->set_number_of_parameters(number_of_parameters);
     this->set_param_types_list(param_types_list);
@@ -446,10 +455,11 @@ void CodeGenerator::ui_new_function(int function_id, char* function_name, char* 
 
 }
 
-void CodeGenerator::ui_new_module(int module_id, char* module_name){
+void CodeGenerator::ui_new_module(int module_id, char* module_name, char* module_classifier){
 
     this->set_module_id(module_id);
     this->set_module_name(module_name);
+    this->set_module_classifier(module_classifier);
 
     this->ui_create_modules_database();
 }
@@ -459,9 +469,22 @@ void CodeGenerator::ui_insert_modules(int number_of_modules, int* modules_ids){
     this->modules_ids = modules_ids;
 }
 
-void CodeGenerator::ui_insert_functions(int number_of_states, int **states_functions){
+void CodeGenerator::ui_insert_functions(int number_of_states, int* functions_per_state, int **states_functions){
     this->number_of_states = number_of_states;
-    this->states_functions = states_functions;
+
+    this->states_functions = (int **)malloc(this->number_of_states * sizeof(int*));
+
+    for(int i = 0; i < this->number_of_states; i++){
+        this->states_functions[i] = (int *)malloc(functions_per_state[i] * sizeof(int));
+        for(int j = 0; j < functions_per_state[i] + 1; j++){
+            if(j < functions_per_state[i]){
+                this->states_functions[i][j] = states_functions[i][j];
+            }
+            else{
+                this->states_functions[i][j] = -1;
+            }
+        }
+    }
 }
 
 void CodeGenerator::ui_create_functions_database(){
@@ -470,6 +493,7 @@ void CodeGenerator::ui_create_functions_database(){
 
     new_m.id = this->function_id;
     strcpy(new_m.name, this->function_name);
+    strcpy(new_m.module_of_function, this->module_of_function);
     strcpy(new_m.return_type, this->return_type);
     new_m.number_of_parameters = this->number_of_parameters;
 
@@ -492,6 +516,7 @@ void CodeGenerator::ui_create_modules_database(){
     FILE *data_base; //Pointer to data_base file
     new_f.id = this->module_id;
     strcpy(new_f.name, this->module_name);
+    strcpy(new_f.module_classifier, this->module_classifier);
 
     data_base = fopen(modules_data_base_path.c_str(), "r+b");
     if(data_base == NULL){
@@ -511,32 +536,195 @@ void CodeGenerator::console_generate(){
     this->console_insert_functions();
 
     //Starts the code
-    this->start();
+    this->console_start();
 
     //Write the  code
-    this->state_machine_code();
+    this->console_state_machine_code();
 
     //Finishes the code
     this->finish();
 }
 
 void CodeGenerator::ui_generate(int number_of_modules, int* modules_ids,
-     int number_of_states, int **states_functions){
+     int* functions_per_state, int number_of_states, int **states_functions){
 
     //Insert modules
     this->ui_insert_modules(number_of_modules, modules_ids);
 
     //Insert functions
-    this->ui_insert_functions(number_of_states, states_functions);
+    this->ui_insert_functions(number_of_states, functions_per_state, states_functions);
 
     //Starts the code
-    this->start();
+    this->ui_start();
 
     //Write the  code
-    this->state_machine_code();
+    this->ui_state_machine_code();
 
     //Finishes the code
     this->finish();
+}
+
+int CodeGenerator::ui_start(){
+
+    //Starts the generated code file
+    ofstream code_file;
+    string code;
+    FILE * data_base;
+    string s_modules;
+    string input_modules = "";
+
+    code_file.open(code_file_name);
+
+    code = "//This code was generated by codeGenerator\n";
+    //Fist, all the includes should be put here
+    code = code + "#include<iostream>\n";
+
+    //Writes to file
+    code_file << code;
+    code_file.close();
+
+    //Writes the modules chosen by the user
+    data_base = fopen(modules_data_base_path.c_str(), "rb");
+    if(data_base != 0){
+       for(int i = 0; i < this->number_of_modules; i++){
+            fseek(data_base, (this->modules_ids[i]-1)*sizeof(code_generator_struct), SEEK_SET);
+            fread(&data_for_modules, sizeof(code_generator_struct), 1, data_base);
+            s_modules = data_for_modules.name;
+            input_modules = input_modules + "\n";
+            input_modules = input_modules + "#include<" +s_modules + ".h>";
+            s_modules = "";            }
+        fclose(data_base);
+        cout << input_modules << endl;
+        code_file.open(code_file_name, ios_base::app);
+        code_file << input_modules + "\n\n";
+        code_file.close();
+    }
+    else{
+        cout << "Error - Modules data base cannot be opened." << endl;
+            return -1;
+    }
+
+    code_file.open(code_file_name, ios_base::app);
+
+    //Namespace std, default in c++ applications
+    code = "using namespace std;\n\n";
+    //Starts the main function
+    code = code + "int main(){\n";
+    //Code....
+
+    //Writes to file
+    code_file << code;
+    code_file.close();
+}
+
+int CodeGenerator::ui_state_machine_code(){
+    //Opens the file
+    ofstream code_file;
+    string code;
+    code_file.open(code_file_name, ios_base::app);
+
+    //Initializes a state machine var
+    code = "//State Machine state\n";
+    code += "int state = 0;\n\n";
+
+    //Opens the state machine
+    code += "switch(state){\n";
+
+    //writes to the file
+    code_file << code;
+
+    //You need to close the file before call a function that opens it
+    code_file.close();
+
+    //For each state, calls the linear_function to write it's respective functions
+    for(int i = 0; i < this->number_of_states; i++){
+
+        code_file.open(code_file_name, ios_base::app);
+
+        //Another state
+        code = "\n	case '" + to_string(i) + "':\n";
+
+        //writes to the file
+        code_file << code;
+
+        //You need to close the file before call a function that opens it
+        code_file.close();
+
+        //Write the linear code state
+        this->ui_linear_function(this->states_functions[i]);
+    }
+
+    //Opens the file
+    code_file.open(code_file_name, ios_base::app);
+
+    //Close the switch
+    code = "\n    }\n";
+
+    //writes to the file
+    code_file << code;
+    //You need to close the file before call a function that opens it
+    code_file.close();
+
+    return 0;
+}
+
+int CodeGenerator::ui_linear_function(int id_functions[]){
+
+    FILE * data_base;
+    ofstream code_file;
+    string s_functions;
+    string linear_functions = "";
+    int i = 0;
+
+    data_base = fopen(functions_data_base_path.c_str(), "rb");
+    if(data_base != 0){
+       while(id_functions[i] != -1){
+            qDebug("LIN %d", id_functions[i]);
+            fseek(data_base, (id_functions[i]-1)*sizeof(code_generator_struct), SEEK_SET);
+            fread(&data_for_functions, sizeof(code_generator_struct), 1, data_base);
+            s_functions = data_for_functions.name;
+            linear_functions = linear_functions + "\n    ";
+
+            //Write the variables according to the parameters names and types
+            //Write parameters
+            for(int j = 0; j < data_for_functions.number_of_parameters; j++){
+                //Type
+                linear_functions =  linear_functions + data_for_functions.param_types[j] + " ";
+                //Name
+                linear_functions = linear_functions + data_for_functions.param_names[j] + ";\n    ";
+            }
+
+            //Write the return variable
+            linear_functions = linear_functions + data_for_functions.return_type + " " + data_for_functions.name + "_"
+                + "return = ";
+
+            linear_functions = linear_functions + s_functions + "(";
+
+            //Write parameters
+            for(int j = 0; j < data_for_functions.number_of_parameters; j++){
+                //Name
+                linear_functions = linear_functions + data_for_functions.param_names[j];
+
+                if(j < data_for_functions.number_of_parameters - 1){
+                    linear_functions = linear_functions + ", ";
+                }
+            }
+            linear_functions = linear_functions + ");\n";
+
+            s_functions = "";
+                    i++;
+            }
+        fclose(data_base);
+        cout << linear_functions << endl;
+        code_file.open(code_file_name, ios_base::app);
+        code_file << linear_functions;
+        code_file.close();
+    }
+    else{
+        cout << "Error - Functions data base cannot be opened." << endl;
+            return -1;
+    }
+    return 0;
 }
 
     //Setters
@@ -594,6 +782,14 @@ void CodeGenerator::set_module_name(char* module_name){
 
 void CodeGenerator::set_number_of_modules(int number_of_modules){
     this->number_of_modules = number_of_modules;
+}
+
+void CodeGenerator::set_module_classifier(char* classifier){
+    strcpy(this->module_classifier, classifier);
+}
+
+void CodeGenerator::set_module_of_function(char* module_of_function){
+    strcpy(this->module_of_function, module_of_function);
 }
 
 //Gettes
@@ -659,6 +855,131 @@ char* CodeGenerator::get_module_name(){
 
 int CodeGenerator::get_number_of_modules(){
     return this->number_of_modules;
+}
+
+char* CodeGenerator::get_module_classifier(){
+    return this->module_classifier;
+}
+
+char* CodeGenerator::get_module_of_function(){
+    return this->module_of_function;
+}
+
+
+char** CodeGenerator::get_all_modules_names_by_classifier(char* classifier){
+
+    FILE * data_base;
+    char** modules_names;
+
+    modules_names = (char **)malloc(100 * sizeof(char*));
+    for(int i = 0; i < 100; i++){
+        modules_names[i] = (char *)malloc(100 * sizeof(char));
+    }
+
+    data_base = fopen(modules_data_base_path.c_str(), "rb");
+    if(data_base != NULL){
+
+        fseek(data_base, 0L, SEEK_END);
+        int sz = ftell(data_base);
+        fseek(data_base, 0L, SEEK_SET);
+
+        int modules_names_index = 0;
+        for(int i = 0; i < sz/sizeof(code_generator_struct); i++){
+            fseek(data_base, i*sizeof(code_generator_struct), SEEK_SET);
+            fread(&data_for_modules, sizeof(code_generator_struct), 1, data_base);
+            if(strcmp(data_for_modules.module_classifier, classifier)==0 && data_for_modules.id != 0){
+                strcpy(modules_names[modules_names_index], data_for_modules.name);
+                modules_names_index++;
+            }
+        }
+
+        fclose(data_base);
+    }
+
+    return modules_names;
+}
+
+char** CodeGenerator::get_all_functions_of_a_module(char* module_name){
+
+    FILE * data_base;
+    char** function_names;
+
+    function_names = (char **)malloc(100 * sizeof(char*));
+    for(int i = 0; i < 100; i++){
+        function_names[i] = (char *)malloc(100 * sizeof(char));
+    }
+
+    data_base = fopen(functions_data_base_path.c_str(), "rb");
+    if(data_base != NULL){
+
+        fseek(data_base, 0L, SEEK_END);
+        int sz = ftell(data_base);
+        fseek(data_base, 0L, SEEK_SET);
+
+        int functions_names_index = 0;
+        for(int i = 0; i < sz/sizeof(code_generator_struct); i++){
+            fseek(data_base, i*sizeof(code_generator_struct), SEEK_SET);
+            fread(&data_for_functions, sizeof(code_generator_struct), 1, data_base);
+            if(strcmp(data_for_functions.module_of_function, module_name)==0 && data_for_functions.id != 0){
+                strcpy(function_names[functions_names_index], data_for_functions.name);
+                functions_names_index++;
+            }
+        }
+
+        fclose(data_base);
+    }
+
+    return function_names;
+}
+
+int CodeGenerator::get_function_id_by_name(char* function_name){
+    FILE * data_base;
+    int id = -1;
+
+    data_base = fopen(functions_data_base_path.c_str(), "rb");
+    if(data_base != NULL){
+
+        fseek(data_base, 0L, SEEK_END);
+        int sz = ftell(data_base);
+        fseek(data_base, 0L, SEEK_SET);
+
+        for(int i = 0; i < sz/sizeof(code_generator_struct); i++){
+            fseek(data_base, i*sizeof(code_generator_struct), SEEK_SET);
+            fread(&data_for_functions, sizeof(code_generator_struct), 1, data_base);
+            if(strcmp(data_for_functions.name, function_name)==0){
+                return data_for_functions.id;
+            }
+        }
+
+        fclose(data_base);
+    }
+
+    return id;
+}
+
+int CodeGenerator::get_module_id_by_name(char* module_name){
+    FILE * data_base;
+    int id = -1;
+
+    data_base = fopen(modules_data_base_path.c_str(), "rb");
+    if(data_base != NULL){
+
+        fseek(data_base, 0L, SEEK_END);
+        int sz = ftell(data_base);
+        fseek(data_base, 0L, SEEK_SET);
+
+        for(int i = 0; i < sz/sizeof(code_generator_struct); i++){
+            fseek(data_base, i*sizeof(code_generator_struct), SEEK_SET);
+            fread(&data_for_modules, sizeof(code_generator_struct), 1, data_base);
+            if(strcmp(data_for_modules.name, module_name)==0){
+                return data_for_modules.id;
+            }
+        }
+
+        fclose(data_base);
+    }
+
+    return id;
 }
 
 //Initializes the state machine counter

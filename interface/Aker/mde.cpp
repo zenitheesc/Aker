@@ -36,3 +36,10 @@ void MDE::on_pbAddModule_clicked()
     module = new addModule(this);
     module->show();
 }
+
+void MDE::on_pbGenerate_clicked()
+{
+    hide(); //To hide the main window
+    startGenerate = new generate(this);
+    startGenerate->show();
+}

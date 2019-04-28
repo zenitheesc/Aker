@@ -6,6 +6,7 @@
 #include <iostream>
 #include <fstream>
 #include <string.h>
+#include <vector>
 using namespace std;
 
 #define code_file_name "code.cpp"
@@ -19,6 +20,8 @@ typedef struct DATA_BASE_FOR_CODE_GENERATOR {
         int number_of_parameters;
         char param_types[10][100];
         char param_names[10][100];
+        char module_of_function[100];
+        char module_classifier[100];
         char return_type[100];
 } code_generator_struct;
 
@@ -53,11 +56,11 @@ public:
 
     void ui_initial_menu(int);
 
-    void ui_new_function(int, char*, char*, int, char**, char**);
+    void ui_new_function(int, char*, char*, char*, int, char**, char**);
 
-    void ui_new_module(int, char*);
+    void ui_new_module(int, char*, char*);
 
-    void ui_generate(int, int*, int, int**);
+    void ui_generate(int, int*, int*, int, int**);
 
     //Setters
     void set_user_choice(int);
@@ -86,6 +89,10 @@ public:
 
     void set_number_of_modules(int);
 
+    void set_module_classifier(char*);
+
+    void set_module_of_function(char*);
+
     //Gettes
     int get_user_choice();
 
@@ -112,6 +119,23 @@ public:
     char* get_module_name();
 
     int get_number_of_modules();
+
+    char* get_module_classifier();
+
+    char* get_module_of_function();
+
+    //Returns a 2D char array with all the modules names in the database
+    char** get_all_modules_names_by_classifier(char*);
+
+    //Returnas a 2D char array with all the function names of a module
+    char** get_all_functions_of_a_module(char*);
+
+    //Returns the function ID using its name
+    int get_function_id_by_name(char*);
+
+    //Returns the module ID using its name
+    int get_module_id_by_name(char*);
+
 
 private:
 
@@ -143,6 +167,10 @@ private:
     int module_id;
     //Module name
     char module_name[100];
+    //Classifies the module
+    char module_classifier[100];
+    //Module that function belongs to
+    char module_of_function[100];
     //Current max value of the state machine
     //Shared with all the instances of the CodeGenrator
     static int curr_state_number;
@@ -150,13 +178,13 @@ private:
     //Starts the code
     //This function handles the writing of the first features that
     //a C++ code should have
-    int start();
+    int console_start();
 
     //Generate the state machine code
     //This functions iterates over the number of states choosen by the
     //user and, for each state, generates a linear code containing
     //each function associated to that respective state
-    int state_machine_code();
+    int console_state_machine_code();
 
     //Finishes the code
     //This function handles the writing of the last features that
@@ -169,7 +197,7 @@ private:
     //IDs of the functions belonging to the respective state. Then is
     //generate a code that calls each function sucessively, adding extras
     //features like one variable for each parameter, etc.
-    int linear_function(int *);
+    int console_linear_function(int *);
 
     //Inclues the functions for the system initial setup
     //The initial setup is a state with id 0. This state is note
@@ -217,7 +245,13 @@ private:
 
     void ui_insert_modules(int, int*);
 
-    void ui_insert_functions(int, int**);
+    void ui_insert_functions(int, int*, int**);
+
+    int ui_start();
+
+    int ui_state_machine_code();
+
+    int ui_linear_function(int*);
 
     string functions_data_base_path = "functions_data_base.dat";
     string modules_data_base_path = "modules_data_base.dat";

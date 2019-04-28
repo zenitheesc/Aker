@@ -1,9 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <author/>
- <comment/>
- <exportmacro/>
  <class>generate</class>
- <widget name="generate" class="QMainWindow">
+ <widget class="QMainWindow" name="generate">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -15,10 +13,517 @@
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
-  <widget name="menubar" class="QMenuBar"/>
-  <widget name="centralwidget" class="QWidget"/>
-  <widget name="statusbar" class="QStatusBar"/>
+  <property name="styleSheet">
+   <string notr="true">background-color: rgb(46, 52, 54);</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QWidget" name="verticalLayoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>230</y>
+      <width>241</width>
+      <height>401</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <item>
+      <widget class="QLabel" name="label">
+       <property name="styleSheet">
+        <string notr="true">color: rgb(238, 238, 236);
+font: 10pt &quot;Courier 10 Pitch&quot;;
+alternate-background-color: rgb(136, 138, 133);
+border-right-color: rgb(0, 0, 0);
+border-bottom-color: rgb(0, 0, 0);</string>
+       </property>
+       <property name="text">
+        <string>Main Module</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QListWidget" name="listMain">
+       <property name="styleSheet">
+        <string notr="true">color: rgb(238, 238, 236);
+font: 10pt &quot;Courier 10 Pitch&quot;;
+alternate-background-color: rgb(136, 138, 133);
+border-right-color: rgb(0, 0, 0);
+border-bottom-color: rgb(0, 0, 0);</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="listMainPb">
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(85, 87, 83);
+color: rgb(238, 238, 236);
+font: 14pt &quot;Courier 10 Pitch&quot;;
+alternate-background-color: rgb(136, 138, 133);
+border-right-color: rgb(0, 0, 0);
+border-bottom-color: rgb(0, 0, 0);</string>
+       </property>
+       <property name="text">
+        <string>Ok</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_2">
+       <property name="styleSheet">
+        <string notr="true">color: rgb(238, 238, 236);
+font: 10pt &quot;Courier 10 Pitch&quot;;
+alternate-background-color: rgb(136, 138, 133);
+border-right-color: rgb(0, 0, 0);
+border-bottom-color: rgb(0, 0, 0);</string>
+       </property>
+       <property name="text">
+        <string>Comm Module</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QListWidget" name="listComm">
+       <property name="styleSheet">
+        <string notr="true">color: rgb(238, 238, 236);
+font: 10pt &quot;Courier 10 Pitch&quot;;
+alternate-background-color: rgb(136, 138, 133);
+border-right-color: rgb(0, 0, 0);
+border-bottom-color: rgb(0, 0, 0);</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="listCommPb">
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(85, 87, 83);
+color: rgb(238, 238, 236);
+font: 14pt &quot;Courier 10 Pitch&quot;;
+alternate-background-color: rgb(136, 138, 133);
+border-right-color: rgb(0, 0, 0);
+border-bottom-color: rgb(0, 0, 0);</string>
+       </property>
+       <property name="text">
+        <string>Ok</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_3">
+       <property name="styleSheet">
+        <string notr="true">color: rgb(238, 238, 236);
+font: 10pt &quot;Courier 10 Pitch&quot;;
+alternate-background-color: rgb(136, 138, 133);
+border-right-color: rgb(0, 0, 0);
+border-bottom-color: rgb(0, 0, 0);</string>
+       </property>
+       <property name="text">
+        <string>Sensor Module</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QListWidget" name="listSensor">
+       <property name="styleSheet">
+        <string notr="true">color: rgb(238, 238, 236);
+font: 10pt &quot;Courier 10 Pitch&quot;;
+alternate-background-color: rgb(136, 138, 133);
+border-right-color: rgb(0, 0, 0);
+border-bottom-color: rgb(0, 0, 0);</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="listSensorPb">
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(85, 87, 83);
+color: rgb(238, 238, 236);
+font: 14pt &quot;Courier 10 Pitch&quot;;
+alternate-background-color: rgb(136, 138, 133);
+border-right-color: rgb(0, 0, 0);
+border-bottom-color: rgb(0, 0, 0);</string>
+       </property>
+       <property name="text">
+        <string>Ok</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="verticalLayoutWidget_2">
+    <property name="geometry">
+     <rect>
+      <x>270</x>
+      <y>20</y>
+      <width>270</width>
+      <height>521</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout_2">
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout">
+       <item>
+        <widget class="QLabel" name="label_5">
+         <property name="styleSheet">
+          <string notr="true">color: rgb(238, 238, 236);
+font: 10pt &quot;Courier 10 Pitch&quot;;
+alternate-background-color: rgb(136, 138, 133);
+border-right-color: rgb(0, 0, 0);
+border-bottom-color: rgb(0, 0, 0);</string>
+         </property>
+         <property name="text">
+          <string>Main Module Functions</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <widget class="QListWidget" name="listMainFunctions">
+       <property name="styleSheet">
+        <string notr="true">color: rgb(238, 238, 236);
+font: 10pt &quot;Courier 10 Pitch&quot;;
+alternate-background-color: rgb(136, 138, 133);
+border-right-color: rgb(0, 0, 0);
+border-bottom-color: rgb(0, 0, 0);</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="mainFunctionPb">
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(85, 87, 83);
+color: rgb(238, 238, 236);
+font: 14pt &quot;Courier 10 Pitch&quot;;
+alternate-background-color: rgb(136, 138, 133);
+border-right-color: rgb(0, 0, 0);
+border-bottom-color: rgb(0, 0, 0);</string>
+       </property>
+       <property name="text">
+        <string>add</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_2">
+       <item>
+        <widget class="QLabel" name="label_6">
+         <property name="styleSheet">
+          <string notr="true">color: rgb(238, 238, 236);
+font: 10pt &quot;Courier 10 Pitch&quot;;
+alternate-background-color: rgb(136, 138, 133);
+border-right-color: rgb(0, 0, 0);
+border-bottom-color: rgb(0, 0, 0);</string>
+         </property>
+         <property name="text">
+          <string>Comm Module Functions</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <widget class="QListWidget" name="listCommFunctions">
+       <property name="styleSheet">
+        <string notr="true">color: rgb(238, 238, 236);
+font: 10pt &quot;Courier 10 Pitch&quot;;
+alternate-background-color: rgb(136, 138, 133);
+border-right-color: rgb(0, 0, 0);
+border-bottom-color: rgb(0, 0, 0);</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="commFunctionPb">
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(85, 87, 83);
+color: rgb(238, 238, 236);
+font: 14pt &quot;Courier 10 Pitch&quot;;
+alternate-background-color: rgb(136, 138, 133);
+border-right-color: rgb(0, 0, 0);
+border-bottom-color: rgb(0, 0, 0);</string>
+       </property>
+       <property name="text">
+        <string>add</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_5">
+       <item>
+        <widget class="QLabel" name="label_10">
+         <property name="styleSheet">
+          <string notr="true">color: rgb(238, 238, 236);
+font: 10pt &quot;Courier 10 Pitch&quot;;
+alternate-background-color: rgb(136, 138, 133);
+border-right-color: rgb(0, 0, 0);
+border-bottom-color: rgb(0, 0, 0);</string>
+         </property>
+         <property name="text">
+          <string>Sensor Module Functions</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <widget class="QListWidget" name="listSensorFunctions">
+       <property name="styleSheet">
+        <string notr="true">color: rgb(238, 238, 236);
+font: 10pt &quot;Courier 10 Pitch&quot;;
+alternate-background-color: rgb(136, 138, 133);
+border-right-color: rgb(0, 0, 0);
+border-bottom-color: rgb(0, 0, 0);</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="sensorFunctionPb">
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(85, 87, 83);
+color: rgb(238, 238, 236);
+font: 14pt &quot;Courier 10 Pitch&quot;;
+alternate-background-color: rgb(136, 138, 133);
+border-right-color: rgb(0, 0, 0);
+border-bottom-color: rgb(0, 0, 0);</string>
+       </property>
+       <property name="text">
+        <string>add</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="verticalLayoutWidget_3">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>20</y>
+      <width>241</width>
+      <height>85</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout_3">
+     <item>
+      <widget class="QLabel" name="label_4">
+       <property name="styleSheet">
+        <string notr="true">color: rgb(238, 238, 236);
+font: 10pt &quot;Courier 10 Pitch&quot;;
+alternate-background-color: rgb(136, 138, 133);
+border-right-color: rgb(0, 0, 0);
+border-bottom-color: rgb(0, 0, 0);</string>
+       </property>
+       <property name="text">
+        <string>Number of States</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="vNumberOfStates">
+       <property name="styleSheet">
+        <string notr="true">color: rgb(238, 238, 236);
+font: 10pt &quot;Courier 10 Pitch&quot;;
+alternate-background-color: rgb(136, 138, 133);
+border-right-color: rgb(0, 0, 0);
+border-bottom-color: rgb(0, 0, 0);</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="numberOfStatesPb">
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(85, 87, 83);
+color: rgb(238, 238, 236);
+font: 14pt &quot;Courier 10 Pitch&quot;;
+alternate-background-color: rgb(136, 138, 133);
+border-right-color: rgb(0, 0, 0);
+border-bottom-color: rgb(0, 0, 0);</string>
+       </property>
+       <property name="text">
+        <string>confirm</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="verticalLayoutWidget_4">
+    <property name="geometry">
+     <rect>
+      <x>550</x>
+      <y>20</y>
+      <width>260</width>
+      <height>471</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout_4">
+     <item>
+      <widget class="QLabel" name="label_7">
+       <property name="styleSheet">
+        <string notr="true">color: rgb(238, 238, 236);
+font: 10pt &quot;Courier 10 Pitch&quot;;
+alternate-background-color: rgb(136, 138, 133);
+border-right-color: rgb(0, 0, 0);
+border-bottom-color: rgb(0, 0, 0);</string>
+       </property>
+       <property name="text">
+        <string>Current State</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QComboBox" name="curStateBox">
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(85, 87, 83);
+color: rgb(238, 238, 236);
+font: 14pt &quot;Courier 10 Pitch&quot;;
+alternate-background-color: rgb(136, 138, 133);
+border-right-color: rgb(0, 0, 0);
+border-bottom-color: rgb(0, 0, 0);</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_11">
+       <property name="styleSheet">
+        <string notr="true">color: rgb(238, 238, 236);
+font: 10pt &quot;Courier 10 Pitch&quot;;
+alternate-background-color: rgb(136, 138, 133);
+border-right-color: rgb(0, 0, 0);
+border-bottom-color: rgb(0, 0, 0);</string>
+       </property>
+       <property name="text">
+        <string>Functions of this state</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QListWidget" name="listCurStateFunction">
+       <property name="styleSheet">
+        <string notr="true">color: rgb(238, 238, 236);
+font: 10pt &quot;Courier 10 Pitch&quot;;
+alternate-background-color: rgb(136, 138, 133);
+border-right-color: rgb(0, 0, 0);
+border-bottom-color: rgb(0, 0, 0);</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="clearCurrFunctionStatePb">
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(85, 87, 83);
+color: rgb(238, 238, 236);
+font: 14pt &quot;Courier 10 Pitch&quot;;
+alternate-background-color: rgb(136, 138, 133);
+border-right-color: rgb(0, 0, 0);
+border-bottom-color: rgb(0, 0, 0);</string>
+       </property>
+       <property name="text">
+        <string>clear</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="confirmFunctionsForStatePb">
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(85, 87, 83);
+color: rgb(238, 238, 236);
+font: 14pt &quot;Courier 10 Pitch&quot;;
+alternate-background-color: rgb(136, 138, 133);
+border-right-color: rgb(0, 0, 0);
+border-bottom-color: rgb(0, 0, 0);</string>
+       </property>
+       <property name="text">
+        <string>confirm</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QPushButton" name="generatePb">
+    <property name="geometry">
+     <rect>
+      <x>550</x>
+      <y>510</y>
+      <width>239</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(85, 87, 83);
+color: rgb(238, 238, 236);
+font: 14pt &quot;Courier 10 Pitch&quot;;
+alternate-background-color: rgb(136, 138, 133);
+border-right-color: rgb(0, 0, 0);
+border-bottom-color: rgb(0, 0, 0);</string>
+    </property>
+    <property name="text">
+     <string>Fucking Generate!</string>
+    </property>
+   </widget>
+   <widget class="QWidget" name="verticalLayoutWidget_5">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>120</y>
+      <width>241</width>
+      <height>85</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout_5">
+     <item>
+      <widget class="QLabel" name="label_8">
+       <property name="styleSheet">
+        <string notr="true">color: rgb(238, 238, 236);
+font: 10pt &quot;Courier 10 Pitch&quot;;
+alternate-background-color: rgb(136, 138, 133);
+border-right-color: rgb(0, 0, 0);
+border-bottom-color: rgb(0, 0, 0);</string>
+       </property>
+       <property name="text">
+        <string>Number of Modules</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="vNumberOfModules">
+       <property name="styleSheet">
+        <string notr="true">color: rgb(238, 238, 236);
+font: 10pt &quot;Courier 10 Pitch&quot;;
+alternate-background-color: rgb(136, 138, 133);
+border-right-color: rgb(0, 0, 0);
+border-bottom-color: rgb(0, 0, 0);</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="numberOfModulesPb">
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(85, 87, 83);
+color: rgb(238, 238, 236);
+font: 14pt &quot;Courier 10 Pitch&quot;;
+alternate-background-color: rgb(136, 138, 133);
+border-right-color: rgb(0, 0, 0);
+border-bottom-color: rgb(0, 0, 0);</string>
+       </property>
+       <property name="text">
+        <string>confirm</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>800</width>
+     <height>22</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
  </widget>
- <pixmapfunction/>
+ <resources/>
  <connections/>
 </ui>

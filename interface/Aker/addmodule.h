@@ -17,9 +17,11 @@ public:
 
     int module_id;
     char* module_name;
+    char* module_classifier;
 
     int get_module_id();
     char* get_module_name();
+    char* get_module_classifier();
 
 private slots:
     void on_pbOk_clicked();

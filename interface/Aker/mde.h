@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <addfunc.h>
 #include <addmodule.h>
+#include <generate.h>
 
 namespace Ui {
 class MDE;
@@ -18,7 +19,7 @@ public:
 
     addFunc *function;
     addModule *module;
-
+    generate *startGenerate;
     ~MDE();
 
 private slots:
@@ -28,6 +29,8 @@ private slots:
     void on_pbExit_clicked();
 
     void on_pbAddModule_clicked();
+
+    void on_pbGenerate_clicked();
 
 private:
     Ui::MDE *ui;

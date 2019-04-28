@@ -7,22 +7,22 @@ int main(){
 
 	while(control==1){
 			
-			code_gen.ui_initial_menu();
+			code_gen.console_initial_menu();
 
 			switch (code_gen.user_choice) {
 					case 1:{
-							code_gen.ui_create_functions_database();
+							code_gen.console_new_function();
 
 							break;
 					}
 					case 2:{
-							code_gen.ui_create_modules_database();
+							code_gen.console_new_module();
 
 							break;
 					}
 					case 3:{
 							
-							code_gen.generate();
+							code_gen.console_generate();
 
 							break;
 					}

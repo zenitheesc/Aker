@@ -1,0 +1,19 @@
+Adicionar Função:
+	ID:
+	Nome:
+	Numero de parâmetros:
+		Para cada parâmetro:
+			Tipo:
+			Nome:
+
+Adicionar Módulo:
+	ID:
+	Nome:
+
+Gerar Código:
+	Quantos Módulos:
+		Para cada Módulo:
+			ID:
+	Quantos Estados:
+		Para cada estado:
+			Quais funções:

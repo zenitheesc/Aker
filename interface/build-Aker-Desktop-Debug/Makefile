@@ -55,24 +55,38 @@ SOURCES       = ../Aker/main.cpp \
 		../Aker/mde.cpp \
 		../Aker/mm.cpp \
 		../Aker/ma.cpp \
-		../Aker/missioninfo.cpp qrc_resources.cpp \
+		../Aker/missioninfo.cpp \
+		../Aker/addfunc.cpp \
+		../Aker/codegenerator.cpp \
+		../Aker/addmodule.cpp \
+		../Aker/generate.cpp qrc_resources.cpp \
 		moc_firstmenu.cpp \
 		moc_mde.cpp \
 		moc_mm.cpp \
 		moc_ma.cpp \
-		moc_missioninfo.cpp
+		moc_missioninfo.cpp \
+		moc_addfunc.cpp \
+		moc_addmodule.cpp \
+		moc_generate.cpp
 OBJECTS       = main.o \
 		firstmenu.o \
 		mde.o \
 		mm.o \
 		ma.o \
 		missioninfo.o \
+		addfunc.o \
+		codegenerator.o \
+		addmodule.o \
+		generate.o \
 		qrc_resources.o \
 		moc_firstmenu.o \
 		moc_mde.o \
 		moc_mm.o \
 		moc_ma.o \
-		moc_missioninfo.o
+		moc_missioninfo.o \
+		moc_addfunc.o \
+		moc_addmodule.o \
+		moc_generate.o
 DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/unix.conf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/linux.conf \
@@ -165,12 +179,20 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		../Aker/mde.h \
 		../Aker/mm.h \
 		../Aker/ma.h \
-		../Aker/missioninfo.h ../Aker/main.cpp \
+		../Aker/missioninfo.h \
+		../Aker/addfunc.h \
+		../Aker/codegenerator.h \
+		../Aker/addmodule.h \
+		../Aker/generate.h ../Aker/main.cpp \
 		../Aker/firstmenu.cpp \
 		../Aker/mde.cpp \
 		../Aker/mm.cpp \
 		../Aker/ma.cpp \
-		../Aker/missioninfo.cpp
+		../Aker/missioninfo.cpp \
+		../Aker/addfunc.cpp \
+		../Aker/codegenerator.cpp \
+		../Aker/addmodule.cpp \
+		../Aker/generate.cpp
 QMAKE_TARGET  = Aker
 DESTDIR       = 
 TARGET        = Aker
@@ -179,7 +201,7 @@ TARGET        = Aker
 first: all
 ####### Build rules
 
-$(TARGET): ui_firstmenu.h ui_mde.h ui_mm.h ui_ma.h ui_missioninfo.h $(OBJECTS)  
+$(TARGET): ui_firstmenu.h ui_mde.h ui_mm.h ui_ma.h ui_missioninfo.h ui_addfunc.h ui_addmodule.h ui_generate.h $(OBJECTS)  
 	$(LINK) $(LFLAGS) -o $(TARGET) $(OBJECTS) $(OBJCOMP) $(LIBS)
 
 Makefile: ../Aker/Aker.pro /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++/qmake.conf /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
@@ -385,9 +407,9 @@ distdir: FORCE
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents ../Aker/resources.qrc $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../Aker/firstmenu.h ../Aker/mde.h ../Aker/mm.h ../Aker/ma.h ../Aker/missioninfo.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../Aker/main.cpp ../Aker/firstmenu.cpp ../Aker/mde.cpp ../Aker/mm.cpp ../Aker/ma.cpp ../Aker/missioninfo.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../Aker/firstmenu.ui ../Aker/mde.ui ../Aker/mm.ui ../Aker/ma.ui ../Aker/missioninfo.ui $(DISTDIR)/
+	$(COPY_FILE) --parents ../Aker/firstmenu.h ../Aker/mde.h ../Aker/mm.h ../Aker/ma.h ../Aker/missioninfo.h ../Aker/addfunc.h ../Aker/codegenerator.h ../Aker/addmodule.h ../Aker/generate.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../Aker/main.cpp ../Aker/firstmenu.cpp ../Aker/mde.cpp ../Aker/mm.cpp ../Aker/ma.cpp ../Aker/missioninfo.cpp ../Aker/addfunc.cpp ../Aker/codegenerator.cpp ../Aker/addmodule.cpp ../Aker/generate.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../Aker/firstmenu.ui ../Aker/mde.ui ../Aker/mm.ui ../Aker/ma.ui ../Aker/missioninfo.ui ../Aker/addfunc.ui ../Aker/addmodule.ui ../Aker/generate.ui $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -427,10 +449,12 @@ compiler_moc_predefs_clean:
 moc_predefs.h: /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp
 	g++ -pipe -g -std=gnu++11 -Wall -W -dM -E -o moc_predefs.h /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: moc_firstmenu.cpp moc_mde.cpp moc_mm.cpp moc_ma.cpp moc_missioninfo.cpp
+compiler_moc_header_make_all: moc_firstmenu.cpp moc_mde.cpp moc_mm.cpp moc_ma.cpp moc_missioninfo.cpp moc_addfunc.cpp moc_addmodule.cpp moc_generate.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_firstmenu.cpp moc_mde.cpp moc_mm.cpp moc_ma.cpp moc_missioninfo.cpp
+	-$(DEL_FILE) moc_firstmenu.cpp moc_mde.cpp moc_mm.cpp moc_ma.cpp moc_missioninfo.cpp moc_addfunc.cpp moc_addmodule.cpp moc_generate.cpp
 moc_firstmenu.cpp: ../Aker/mde.h \
+		../Aker/addfunc.h \
+		../Aker/addmodule.h \
 		../Aker/mm.h \
 		../Aker/ma.h \
 		../Aker/firstmenu.h \
@@ -438,7 +462,9 @@ moc_firstmenu.cpp: ../Aker/mde.h \
 		/usr/lib/qt5/bin/moc
 	/usr/lib/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/tiago/Aker/interface/Aker -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../Aker/firstmenu.h -o moc_firstmenu.cpp
 
-moc_mde.cpp: ../Aker/mde.h \
+moc_mde.cpp: ../Aker/addfunc.h \
+		../Aker/addmodule.h \
+		../Aker/mde.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
 	/usr/lib/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/tiago/Aker/interface/Aker -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../Aker/mde.h -o moc_mde.cpp
@@ -458,11 +484,26 @@ moc_missioninfo.cpp: ../Aker/missioninfo.h \
 		/usr/lib/qt5/bin/moc
 	/usr/lib/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/tiago/Aker/interface/Aker -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../Aker/missioninfo.h -o moc_missioninfo.cpp
 
+moc_addfunc.cpp: ../Aker/addfunc.h \
+		moc_predefs.h \
+		/usr/lib/qt5/bin/moc
+	/usr/lib/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/tiago/Aker/interface/Aker -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../Aker/addfunc.h -o moc_addfunc.cpp
+
+moc_addmodule.cpp: ../Aker/addmodule.h \
+		moc_predefs.h \
+		/usr/lib/qt5/bin/moc
+	/usr/lib/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/tiago/Aker/interface/Aker -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../Aker/addmodule.h -o moc_addmodule.cpp
+
+moc_generate.cpp: ../Aker/generate.h \
+		moc_predefs.h \
+		/usr/lib/qt5/bin/moc
+	/usr/lib/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/tiago/Aker/interface/Aker -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../Aker/generate.h -o moc_generate.cpp
+
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
-compiler_uic_make_all: ui_firstmenu.h ui_mde.h ui_mm.h ui_ma.h ui_missioninfo.h
+compiler_uic_make_all: ui_firstmenu.h ui_mde.h ui_mm.h ui_ma.h ui_missioninfo.h ui_addfunc.h ui_addmodule.h ui_generate.h
 compiler_uic_clean:
-	-$(DEL_FILE) ui_firstmenu.h ui_mde.h ui_mm.h ui_ma.h ui_missioninfo.h
+	-$(DEL_FILE) ui_firstmenu.h ui_mde.h ui_mm.h ui_ma.h ui_missioninfo.h ui_addfunc.h ui_addmodule.h ui_generate.h
 ui_firstmenu.h: ../Aker/firstmenu.ui \
 		/usr/lib/qt5/bin/uic
 	/usr/lib/qt5/bin/uic ../Aker/firstmenu.ui -o ui_firstmenu.h
@@ -483,6 +524,18 @@ ui_missioninfo.h: ../Aker/missioninfo.ui \
 		/usr/lib/qt5/bin/uic
 	/usr/lib/qt5/bin/uic ../Aker/missioninfo.ui -o ui_missioninfo.h
 
+ui_addfunc.h: ../Aker/addfunc.ui \
+		/usr/lib/qt5/bin/uic
+	/usr/lib/qt5/bin/uic ../Aker/addfunc.ui -o ui_addfunc.h
+
+ui_addmodule.h: ../Aker/addmodule.ui \
+		/usr/lib/qt5/bin/uic
+	/usr/lib/qt5/bin/uic ../Aker/addmodule.ui -o ui_addmodule.h
+
+ui_generate.h: ../Aker/generate.ui \
+		/usr/lib/qt5/bin/uic
+	/usr/lib/qt5/bin/uic ../Aker/generate.ui -o ui_generate.h
+
 compiler_yacc_decl_make_all:
 compiler_yacc_decl_clean:
 compiler_yacc_impl_make_all:
@@ -495,18 +548,24 @@ compiler_clean: compiler_rcc_clean compiler_moc_predefs_clean compiler_moc_heade
 
 main.o: ../Aker/main.cpp ../Aker/firstmenu.h \
 		../Aker/mde.h \
+		../Aker/addfunc.h \
+		../Aker/addmodule.h \
 		../Aker/mm.h \
 		../Aker/ma.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../Aker/main.cpp
 
 firstmenu.o: ../Aker/firstmenu.cpp ../Aker/firstmenu.h \
 		../Aker/mde.h \
+		../Aker/addfunc.h \
+		../Aker/addmodule.h \
 		../Aker/mm.h \
 		../Aker/ma.h \
 		ui_firstmenu.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o firstmenu.o ../Aker/firstmenu.cpp
 
 mde.o: ../Aker/mde.cpp ../Aker/mde.h \
+		../Aker/addfunc.h \
+		../Aker/addmodule.h \
 		ui_mde.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mde.o ../Aker/mde.cpp
 
@@ -521,6 +580,23 @@ ma.o: ../Aker/ma.cpp ../Aker/ma.h \
 missioninfo.o: ../Aker/missioninfo.cpp ../Aker/missioninfo.h \
 		ui_missioninfo.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o missioninfo.o ../Aker/missioninfo.cpp
+
+addfunc.o: ../Aker/addfunc.cpp ../Aker/addfunc.h \
+		ui_addfunc.h \
+		../Aker/codegenerator.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o addfunc.o ../Aker/addfunc.cpp
+
+codegenerator.o: ../Aker/codegenerator.cpp ../Aker/codegenerator.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o codegenerator.o ../Aker/codegenerator.cpp
+
+addmodule.o: ../Aker/addmodule.cpp ../Aker/addmodule.h \
+		ui_addmodule.h \
+		../Aker/codegenerator.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o addmodule.o ../Aker/addmodule.cpp
+
+generate.o: ../Aker/generate.cpp ../Aker/generate.h \
+		ui_generate.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o generate.o ../Aker/generate.cpp
 
 qrc_resources.o: qrc_resources.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qrc_resources.o qrc_resources.cpp
@@ -539,6 +615,15 @@ moc_ma.o: moc_ma.cpp
 
 moc_missioninfo.o: moc_missioninfo.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_missioninfo.o moc_missioninfo.cpp
+
+moc_addfunc.o: moc_addfunc.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_addfunc.o moc_addfunc.cpp
+
+moc_addmodule.o: moc_addmodule.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_addmodule.o moc_addmodule.cpp
+
+moc_generate.o: moc_generate.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_generate.o moc_generate.cpp
 
 ####### Install
 

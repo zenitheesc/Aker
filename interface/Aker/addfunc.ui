@@ -1,0 +1,775 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>addFunc</class>
+ <widget class="QMainWindow" name="addFunc">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>829</width>
+    <height>482</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Add New Function</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: rgb(46, 52, 54);</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QWidget" name="layoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>0</y>
+      <width>381</width>
+      <height>391</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout_2">
+     <item>
+      <layout class="QVBoxLayout" name="verticalLayout">
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout">
+         <item>
+          <widget class="QLabel" name="label">
+           <property name="styleSheet">
+            <string notr="true">color: rgb(238, 238, 236);
+font: 10pt &quot;Courier 10 Pitch&quot;;
+alternate-background-color: rgb(136, 138, 133);
+border-right-color: rgb(0, 0, 0);
+border-bottom-color: rgb(0, 0, 0);</string>
+           </property>
+           <property name="text">
+            <string>Function ID:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="vFuncID">
+           <property name="styleSheet">
+            <string notr="true">color: rgb(238, 238, 236);
+font: 10pt &quot;Courier 10 Pitch&quot;;
+alternate-background-color: rgb(136, 138, 133);
+border-right-color: rgb(0, 0, 0);
+border-bottom-color: rgb(0, 0, 0);</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_2">
+         <item>
+          <widget class="QLabel" name="label_2">
+           <property name="styleSheet">
+            <string notr="true">color: rgb(238, 238, 236);
+font: 10pt &quot;Courier 10 Pitch&quot;;
+alternate-background-color: rgb(136, 138, 133);
+border-right-color: rgb(0, 0, 0);
+border-bottom-color: rgb(0, 0, 0);</string>
+           </property>
+           <property name="text">
+            <string>Function Name:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="vFuncName">
+           <property name="styleSheet">
+            <string notr="true">color: rgb(238, 238, 236);
+font: 10pt &quot;Courier 10 Pitch&quot;;
+alternate-background-color: rgb(136, 138, 133);
+border-right-color: rgb(0, 0, 0);
+border-bottom-color: rgb(0, 0, 0);</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_7">
+         <item>
+          <widget class="QLabel" name="label_4">
+           <property name="styleSheet">
+            <string notr="true">color: rgb(238, 238, 236);
+font: 10pt &quot;Courier 10 Pitch&quot;;
+alternate-background-color: rgb(136, 138, 133);
+border-right-color: rgb(0, 0, 0);
+border-bottom-color: rgb(0, 0, 0);</string>
+           </property>
+           <property name="text">
+            <string>Module of Function</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="vModuleOfFunction">
+           <property name="styleSheet">
+            <string notr="true">color: rgb(238, 238, 236);
+font: 10pt &quot;Courier 10 Pitch&quot;;
+alternate-background-color: rgb(136, 138, 133);
+border-right-color: rgb(0, 0, 0);
+border-bottom-color: rgb(0, 0, 0);</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_4">
+         <item>
+          <widget class="QLabel" name="label_5">
+           <property name="styleSheet">
+            <string notr="true">color: rgb(238, 238, 236);
+font: 10pt &quot;Courier 10 Pitch&quot;;
+alternate-background-color: rgb(136, 138, 133);
+border-right-color: rgb(0, 0, 0);
+border-bottom-color: rgb(0, 0, 0);</string>
+           </property>
+           <property name="text">
+            <string>Return Type</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="vFuncRetType">
+           <property name="styleSheet">
+            <string notr="true">color: rgb(238, 238, 236);
+font: 10pt &quot;Courier 10 Pitch&quot;;
+alternate-background-color: rgb(136, 138, 133);
+border-right-color: rgb(0, 0, 0);
+border-bottom-color: rgb(0, 0, 0);</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_3">
+         <item>
+          <widget class="QLabel" name="label_3">
+           <property name="styleSheet">
+            <string notr="true">color: rgb(238, 238, 236);
+font: 10pt &quot;Courier 10 Pitch&quot;;
+alternate-background-color: rgb(136, 138, 133);
+border-right-color: rgb(0, 0, 0);
+border-bottom-color: rgb(0, 0, 0);</string>
+           </property>
+           <property name="text">
+            <string>Number of Parameters:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="vFuncParameters">
+           <property name="styleSheet">
+            <string notr="true">color: rgb(238, 238, 236);
+font: 10pt &quot;Courier 10 Pitch&quot;;
+alternate-background-color: rgb(136, 138, 133);
+border-right-color: rgb(0, 0, 0);
+border-bottom-color: rgb(0, 0, 0);</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QPushButton" name="pbOk">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>400</y>
+      <width>379</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(85, 87, 83);
+color: rgb(238, 238, 236);
+font: 14pt &quot;Courier 10 Pitch&quot;;
+alternate-background-color: rgb(136, 138, 133);
+border-right-color: rgb(0, 0, 0);
+border-bottom-color: rgb(0, 0, 0);</string>
+    </property>
+    <property name="text">
+     <string>Ok</string>
+    </property>
+   </widget>
+   <widget class="QWidget" name="layoutWidget_2">
+    <property name="geometry">
+     <rect>
+      <x>400</x>
+      <y>0</y>
+      <width>421</width>
+      <height>431</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout_3">
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_18">
+       <item>
+        <widget class="QLabel" name="paramLabelType0">
+         <property name="styleSheet">
+          <string notr="true">color: rgb(238, 238, 236);
+font: 10pt &quot;Courier 10 Pitch&quot;;
+alternate-background-color: rgb(136, 138, 133);
+border-right-color: rgb(0, 0, 0);
+border-bottom-color: rgb(0, 0, 0);</string>
+         </property>
+         <property name="text">
+          <string>Type 0</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="vParamType0">
+         <property name="styleSheet">
+          <string notr="true">color: rgb(238, 238, 236);
+font: 10pt &quot;Courier 10 Pitch&quot;;
+alternate-background-color: rgb(136, 138, 133);
+border-right-color: rgb(0, 0, 0);
+border-bottom-color: rgb(0, 0, 0);</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="paramLabelName0">
+         <property name="styleSheet">
+          <string notr="true">color: rgb(238, 238, 236);
+font: 10pt &quot;Courier 10 Pitch&quot;;
+alternate-background-color: rgb(136, 138, 133);
+border-right-color: rgb(0, 0, 0);
+border-bottom-color: rgb(0, 0, 0);</string>
+         </property>
+         <property name="text">
+          <string>Name 0</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="vParamName0">
+         <property name="styleSheet">
+          <string notr="true">color: rgb(238, 238, 236);
+font: 10pt &quot;Courier 10 Pitch&quot;;
+alternate-background-color: rgb(136, 138, 133);
+border-right-color: rgb(0, 0, 0);
+border-bottom-color: rgb(0, 0, 0);</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_6">
+       <item>
+        <widget class="QLabel" name="paramLabelType1">
+         <property name="styleSheet">
+          <string notr="true">color: rgb(238, 238, 236);
+font: 10pt &quot;Courier 10 Pitch&quot;;
+alternate-background-color: rgb(136, 138, 133);
+border-right-color: rgb(0, 0, 0);
+border-bottom-color: rgb(0, 0, 0);</string>
+         </property>
+         <property name="text">
+          <string>Type 1</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="vParamType1">
+         <property name="enabled">
+          <bool>true</bool>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">color: rgb(238, 238, 236);
+font: 10pt &quot;Courier 10 Pitch&quot;;
+alternate-background-color: rgb(136, 138, 133);
+border-right-color: rgb(0, 0, 0);
+border-bottom-color: rgb(0, 0, 0);</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="paramLabelName1">
+         <property name="styleSheet">
+          <string notr="true">color: rgb(238, 238, 236);
+font: 10pt &quot;Courier 10 Pitch&quot;;
+alternate-background-color: rgb(136, 138, 133);
+border-right-color: rgb(0, 0, 0);
+border-bottom-color: rgb(0, 0, 0);</string>
+         </property>
+         <property name="text">
+          <string>Name 1</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="vParamName1">
+         <property name="styleSheet">
+          <string notr="true">color: rgb(238, 238, 236);
+font: 10pt &quot;Courier 10 Pitch&quot;;
+alternate-background-color: rgb(136, 138, 133);
+border-right-color: rgb(0, 0, 0);
+border-bottom-color: rgb(0, 0, 0);</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_8">
+       <item>
+        <widget class="QLabel" name="paramLabelType2">
+         <property name="styleSheet">
+          <string notr="true">color: rgb(238, 238, 236);
+font: 10pt &quot;Courier 10 Pitch&quot;;
+alternate-background-color: rgb(136, 138, 133);
+border-right-color: rgb(0, 0, 0);
+border-bottom-color: rgb(0, 0, 0);</string>
+         </property>
+         <property name="text">
+          <string>Type 2</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="vParamType2">
+         <property name="styleSheet">
+          <string notr="true">color: rgb(238, 238, 236);
+font: 10pt &quot;Courier 10 Pitch&quot;;
+alternate-background-color: rgb(136, 138, 133);
+border-right-color: rgb(0, 0, 0);
+border-bottom-color: rgb(0, 0, 0);</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="paramLabelName2">
+         <property name="styleSheet">
+          <string notr="true">color: rgb(238, 238, 236);
+font: 10pt &quot;Courier 10 Pitch&quot;;
+alternate-background-color: rgb(136, 138, 133);
+border-right-color: rgb(0, 0, 0);
+border-bottom-color: rgb(0, 0, 0);</string>
+         </property>
+         <property name="text">
+          <string>Name 2</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="vParamName2">
+         <property name="styleSheet">
+          <string notr="true">color: rgb(238, 238, 236);
+font: 10pt &quot;Courier 10 Pitch&quot;;
+alternate-background-color: rgb(136, 138, 133);
+border-right-color: rgb(0, 0, 0);
+border-bottom-color: rgb(0, 0, 0);</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_15">
+       <item>
+        <widget class="QLabel" name="paramLabelType3">
+         <property name="styleSheet">
+          <string notr="true">color: rgb(238, 238, 236);
+font: 10pt &quot;Courier 10 Pitch&quot;;
+alternate-background-color: rgb(136, 138, 133);
+border-right-color: rgb(0, 0, 0);
+border-bottom-color: rgb(0, 0, 0);</string>
+         </property>
+         <property name="text">
+          <string>Type 3</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="vParamType3">
+         <property name="styleSheet">
+          <string notr="true">color: rgb(238, 238, 236);
+font: 10pt &quot;Courier 10 Pitch&quot;;
+alternate-background-color: rgb(136, 138, 133);
+border-right-color: rgb(0, 0, 0);
+border-bottom-color: rgb(0, 0, 0);</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="paramLabelName3">
+         <property name="styleSheet">
+          <string notr="true">color: rgb(238, 238, 236);
+font: 10pt &quot;Courier 10 Pitch&quot;;
+alternate-background-color: rgb(136, 138, 133);
+border-right-color: rgb(0, 0, 0);
+border-bottom-color: rgb(0, 0, 0);</string>
+         </property>
+         <property name="text">
+          <string>Name 3</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="vParamName3">
+         <property name="styleSheet">
+          <string notr="true">color: rgb(238, 238, 236);
+font: 10pt &quot;Courier 10 Pitch&quot;;
+alternate-background-color: rgb(136, 138, 133);
+border-right-color: rgb(0, 0, 0);
+border-bottom-color: rgb(0, 0, 0);</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_11">
+       <item>
+        <widget class="QLabel" name="paramLabelType4">
+         <property name="styleSheet">
+          <string notr="true">color: rgb(238, 238, 236);
+font: 10pt &quot;Courier 10 Pitch&quot;;
+alternate-background-color: rgb(136, 138, 133);
+border-right-color: rgb(0, 0, 0);
+border-bottom-color: rgb(0, 0, 0);</string>
+         </property>
+         <property name="text">
+          <string>Type 4</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="vParamType4">
+         <property name="styleSheet">
+          <string notr="true">color: rgb(238, 238, 236);
+font: 10pt &quot;Courier 10 Pitch&quot;;
+alternate-background-color: rgb(136, 138, 133);
+border-right-color: rgb(0, 0, 0);
+border-bottom-color: rgb(0, 0, 0);</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="paramLabelName4">
+         <property name="styleSheet">
+          <string notr="true">color: rgb(238, 238, 236);
+font: 10pt &quot;Courier 10 Pitch&quot;;
+alternate-background-color: rgb(136, 138, 133);
+border-right-color: rgb(0, 0, 0);
+border-bottom-color: rgb(0, 0, 0);</string>
+         </property>
+         <property name="text">
+          <string>Name 4</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="vParamName4">
+         <property name="styleSheet">
+          <string notr="true">color: rgb(238, 238, 236);
+font: 10pt &quot;Courier 10 Pitch&quot;;
+alternate-background-color: rgb(136, 138, 133);
+border-right-color: rgb(0, 0, 0);
+border-bottom-color: rgb(0, 0, 0);</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_14">
+       <item>
+        <widget class="QLabel" name="paramLabelType5">
+         <property name="styleSheet">
+          <string notr="true">color: rgb(238, 238, 236);
+font: 10pt &quot;Courier 10 Pitch&quot;;
+alternate-background-color: rgb(136, 138, 133);
+border-right-color: rgb(0, 0, 0);
+border-bottom-color: rgb(0, 0, 0);</string>
+         </property>
+         <property name="text">
+          <string>Type 5</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="vParamType5">
+         <property name="styleSheet">
+          <string notr="true">color: rgb(238, 238, 236);
+font: 10pt &quot;Courier 10 Pitch&quot;;
+alternate-background-color: rgb(136, 138, 133);
+border-right-color: rgb(0, 0, 0);
+border-bottom-color: rgb(0, 0, 0);</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="paramLabelName5">
+         <property name="styleSheet">
+          <string notr="true">color: rgb(238, 238, 236);
+font: 10pt &quot;Courier 10 Pitch&quot;;
+alternate-background-color: rgb(136, 138, 133);
+border-right-color: rgb(0, 0, 0);
+border-bottom-color: rgb(0, 0, 0);</string>
+         </property>
+         <property name="text">
+          <string>Name 5</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="vParamName5">
+         <property name="styleSheet">
+          <string notr="true">color: rgb(238, 238, 236);
+font: 10pt &quot;Courier 10 Pitch&quot;;
+alternate-background-color: rgb(136, 138, 133);
+border-right-color: rgb(0, 0, 0);
+border-bottom-color: rgb(0, 0, 0);</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_12">
+       <item>
+        <widget class="QLabel" name="paramLabelType6">
+         <property name="styleSheet">
+          <string notr="true">color: rgb(238, 238, 236);
+font: 10pt &quot;Courier 10 Pitch&quot;;
+alternate-background-color: rgb(136, 138, 133);
+border-right-color: rgb(0, 0, 0);
+border-bottom-color: rgb(0, 0, 0);</string>
+         </property>
+         <property name="text">
+          <string>Type 6</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="vParamType6">
+         <property name="styleSheet">
+          <string notr="true">color: rgb(238, 238, 236);
+font: 10pt &quot;Courier 10 Pitch&quot;;
+alternate-background-color: rgb(136, 138, 133);
+border-right-color: rgb(0, 0, 0);
+border-bottom-color: rgb(0, 0, 0);</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="paramLabelName6">
+         <property name="styleSheet">
+          <string notr="true">color: rgb(238, 238, 236);
+font: 10pt &quot;Courier 10 Pitch&quot;;
+alternate-background-color: rgb(136, 138, 133);
+border-right-color: rgb(0, 0, 0);
+border-bottom-color: rgb(0, 0, 0);</string>
+         </property>
+         <property name="text">
+          <string>Name 6</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="vParamName6">
+         <property name="styleSheet">
+          <string notr="true">color: rgb(238, 238, 236);
+font: 10pt &quot;Courier 10 Pitch&quot;;
+alternate-background-color: rgb(136, 138, 133);
+border-right-color: rgb(0, 0, 0);
+border-bottom-color: rgb(0, 0, 0);</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_17">
+       <item>
+        <widget class="QLabel" name="paramLabelType7">
+         <property name="enabled">
+          <bool>true</bool>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">color: rgb(238, 238, 236);
+font: 10pt &quot;Courier 10 Pitch&quot;;
+alternate-background-color: rgb(136, 138, 133);
+border-right-color: rgb(0, 0, 0);
+border-bottom-color: rgb(0, 0, 0);</string>
+         </property>
+         <property name="text">
+          <string>Type 7</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="vParamType7">
+         <property name="styleSheet">
+          <string notr="true">color: rgb(238, 238, 236);
+font: 10pt &quot;Courier 10 Pitch&quot;;
+alternate-background-color: rgb(136, 138, 133);
+border-right-color: rgb(0, 0, 0);
+border-bottom-color: rgb(0, 0, 0);</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="paramLabelName7">
+         <property name="styleSheet">
+          <string notr="true">color: rgb(238, 238, 236);
+font: 10pt &quot;Courier 10 Pitch&quot;;
+alternate-background-color: rgb(136, 138, 133);
+border-right-color: rgb(0, 0, 0);
+border-bottom-color: rgb(0, 0, 0);</string>
+         </property>
+         <property name="text">
+          <string>Name 7</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="vParamName7">
+         <property name="styleSheet">
+          <string notr="true">color: rgb(238, 238, 236);
+font: 10pt &quot;Courier 10 Pitch&quot;;
+alternate-background-color: rgb(136, 138, 133);
+border-right-color: rgb(0, 0, 0);
+border-bottom-color: rgb(0, 0, 0);</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_16">
+       <item>
+        <widget class="QLabel" name="paramLabelType8">
+         <property name="styleSheet">
+          <string notr="true">color: rgb(238, 238, 236);
+font: 10pt &quot;Courier 10 Pitch&quot;;
+alternate-background-color: rgb(136, 138, 133);
+border-right-color: rgb(0, 0, 0);
+border-bottom-color: rgb(0, 0, 0);</string>
+         </property>
+         <property name="text">
+          <string>Type 8</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="vParamType8">
+         <property name="styleSheet">
+          <string notr="true">color: rgb(238, 238, 236);
+font: 10pt &quot;Courier 10 Pitch&quot;;
+alternate-background-color: rgb(136, 138, 133);
+border-right-color: rgb(0, 0, 0);
+border-bottom-color: rgb(0, 0, 0);</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="paramLabelName8">
+         <property name="styleSheet">
+          <string notr="true">color: rgb(238, 238, 236);
+font: 10pt &quot;Courier 10 Pitch&quot;;
+alternate-background-color: rgb(136, 138, 133);
+border-right-color: rgb(0, 0, 0);
+border-bottom-color: rgb(0, 0, 0);</string>
+         </property>
+         <property name="text">
+          <string>Name 8</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="vParamName8">
+         <property name="styleSheet">
+          <string notr="true">color: rgb(238, 238, 236);
+font: 10pt &quot;Courier 10 Pitch&quot;;
+alternate-background-color: rgb(136, 138, 133);
+border-right-color: rgb(0, 0, 0);
+border-bottom-color: rgb(0, 0, 0);</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_9">
+       <item>
+        <widget class="QLabel" name="paramLabelType9">
+         <property name="styleSheet">
+          <string notr="true">color: rgb(238, 238, 236);
+font: 10pt &quot;Courier 10 Pitch&quot;;
+alternate-background-color: rgb(136, 138, 133);
+border-right-color: rgb(0, 0, 0);
+border-bottom-color: rgb(0, 0, 0);</string>
+         </property>
+         <property name="text">
+          <string>Type 9</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="vParamType9">
+         <property name="styleSheet">
+          <string notr="true">color: rgb(238, 238, 236);
+font: 10pt &quot;Courier 10 Pitch&quot;;
+alternate-background-color: rgb(136, 138, 133);
+border-right-color: rgb(0, 0, 0);
+border-bottom-color: rgb(0, 0, 0);</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="paramLabelName9">
+         <property name="styleSheet">
+          <string notr="true">color: rgb(238, 238, 236);
+font: 10pt &quot;Courier 10 Pitch&quot;;
+alternate-background-color: rgb(136, 138, 133);
+border-right-color: rgb(0, 0, 0);
+border-bottom-color: rgb(0, 0, 0);</string>
+         </property>
+         <property name="text">
+          <string>Name 9</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="vParamName9">
+         <property name="styleSheet">
+          <string notr="true">color: rgb(238, 238, 236);
+font: 10pt &quot;Courier 10 Pitch&quot;;
+alternate-background-color: rgb(136, 138, 133);
+border-right-color: rgb(0, 0, 0);
+border-bottom-color: rgb(0, 0, 0);</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>829</width>
+     <height>22</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

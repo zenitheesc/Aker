@@ -21,7 +21,7 @@ FirstMenu::~FirstMenu()
 
 void FirstMenu::on_startMDE_clicked()
 {
-    hide(); //Para esconder a janela principal;
+    hide(); //To hide the main window
     mdeWindow = new MDE(this);
     mdeWindow->show();
 }

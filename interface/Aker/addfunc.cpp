@@ -43,7 +43,7 @@ char** addFunc::get_param_types_list(){
 char** addFunc::get_param_names_list(){
     char** param_names_list = (char **) malloc((sizeof(this->param_names_list)/sizeof(this->param_names_list[0])) *
                                                     sizeof(char *));
-    for(int i = 0; i < (sizeof(this->param_names_list)/sizeof(this->param_names_list)); i++){
+    for(int i = 0; i < (sizeof(this->param_names_list)/sizeof(this->param_names_list[0])); i++){
         param_names_list[i] = this->param_names_list[i];
     }
     return param_names_list;

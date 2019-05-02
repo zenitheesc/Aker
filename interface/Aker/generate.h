@@ -24,12 +24,14 @@ public:
     char ** functions_names_sensor;
     int number_of_states;
     int ** states_functions;
-    int number_of_modules;
+    int number_of_modules = 3;
+    int modules_chosen;
     int * modules_ids;
     int number_of_functions_this_state;
     int * functions_per_state;
 
-    //TODO getters
+    //TODO: Getters
+
 private slots:
 
     void on_listMainPb_clicked();

@@ -8,10 +8,10 @@ generate::generate(QWidget *parent) :
 {
     CodeGenerator code_gen;
 
-    ui->setupUi(this);
-
     //Just initializing the modules_ids arrays with the number of modules
     this->modules_ids = (int *)malloc(this->number_of_modules * sizeof(int));
+
+    ui->setupUi(this);
 
     // Main Module
     this->modules_names_main = (char **)malloc(100 * sizeof(char*));
@@ -76,6 +76,12 @@ void generate::on_listMainPb_clicked()
 
     QString moduleNameQString;
     string moduleNameCString;
+
+    // If the user didn't selected anything
+    if(ui->listMain->selectedItems().size() == 0){
+        ui->listMain->setCurrentItem(ui->listMain->itemAt(0,0));
+    }
+
     moduleNameQString = ui->listMain->currentItem()->text();
     moduleNameCString = moduleNameQString.toStdString();
     this->functions_names_main = code_gen.get_all_functions_of_a_module(const_cast<char*>(moduleNameCString.c_str()));
@@ -102,6 +108,12 @@ void generate::on_listCommPb_clicked()
 
     QString moduleNameQString;
     string moduleNameCString;
+
+    // If the user didn't selected anything
+    if(ui->listComm->selectedItems().size() == 0){
+        ui->listComm->setCurrentItem(ui->listComm->itemAt(0,0));
+    }
+
     moduleNameQString = ui->listComm->currentItem()->text();
     moduleNameCString = moduleNameQString.toStdString();
     this->functions_names_comm = code_gen.get_all_functions_of_a_module(const_cast<char*>(moduleNameCString.c_str()));
@@ -128,6 +140,12 @@ void generate::on_listSensorPb_clicked()
 
     QString moduleNameQString;
     string moduleNameCString;
+
+    // If the user didn't selected anything
+    if(ui->listSensor->selectedItems().size() == 0){
+        ui->listSensor->setCurrentItem(ui->listSensor->itemAt(0,0));
+    }
+
     moduleNameQString = ui->listSensor->currentItem()->text();
     moduleNameCString = moduleNameQString.toStdString();
     this->functions_names_sensor = code_gen.get_all_functions_of_a_module(const_cast<char*>(moduleNameCString.c_str()));
@@ -146,6 +164,12 @@ void generate::on_mainFunctionPb_clicked()
 {
     QString functionToAddQString;
     string functionToAddCString;
+
+    //If nothing selected, uses the first item
+    if(ui->listMainFunctions->selectedItems().size() == 0){
+        ui->listMainFunctions->setCurrentItem(ui->listMainFunctions->itemAt(0,0));
+    }
+
     functionToAddQString = ui->listMainFunctions->currentItem()->text();
     functionToAddCString = functionToAddQString.toStdString();
     ui->listCurStateFunction->addItem(const_cast<char*>(functionToAddCString.c_str()));
@@ -155,6 +179,12 @@ void generate::on_commFunctionPb_clicked()
 {
     QString functionToAddQString;
     string functionToAddCString;
+
+    //If nothing selected, uses the first item
+    if(ui->listCommFunctions->selectedItems().size() == 0){
+        ui->listCommFunctions->setCurrentItem(ui->listCommFunctions->itemAt(0,0));
+    }
+
     functionToAddQString = ui->listCommFunctions->currentItem()->text();
     functionToAddCString = functionToAddQString.toStdString();
     ui->listCurStateFunction->addItem(const_cast<char*>(functionToAddCString.c_str()));
@@ -164,6 +194,12 @@ void generate::on_sensorFunctionPb_clicked()
 {
     QString functionToAddQString;
     string functionToAddCString;
+
+    //If nothing selected, uses the first item
+    if(ui->listSensorFunctions->selectedItems().size() == 0){
+        ui->listSensorFunctions->setCurrentItem(ui->listSensorFunctions->itemAt(0,0));
+    }
+
     functionToAddQString = ui->listSensorFunctions->currentItem()->text();
     functionToAddCString = functionToAddQString.toStdString();
     ui->listCurStateFunction->addItem(const_cast<char*>(functionToAddCString.c_str()));
@@ -205,6 +241,9 @@ void generate::on_confirmFunctionsForStatePb_clicked()
         this->states_functions[curr_state_index][i] = id;
     }
 
+    int nextStateNumber = currentTextBox.toInt() + 1;
+    ui->curStateBox->setCurrentIndex(nextStateNumber);
+
 }
 
 void generate::on_clearCurrFunctionStatePb_clicked()
@@ -216,13 +255,15 @@ void generate::on_generatePb_clicked()
 {
     CodeGenerator code_gen;
 
-    code_gen.ui_generate(this->number_of_modules, this->modules_ids, this->functions_per_state, this->number_of_states, this->states_functions);
+    code_gen.ui_generate(this->modules_chosen, this->modules_ids, this->functions_per_state, this->number_of_states, this->states_functions);
 
+    parentWidget()->show();
+    this->hide();
 }
 
 
 
 void generate::on_numberOfModulesPb_clicked()
 {
-    this->number_of_modules = ui->vNumberOfModules->text().toInt();
+    this->modules_chosen = ui->vNumberOfModules->text().toInt();
 }

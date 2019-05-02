@@ -11,13 +11,13 @@ using namespace std;
 //the database's file much more easily
 typedef struct DATA_BASE_FOR_CODE_GENERATOR {
         int id;
-        char name[100];
+        string name;
         int number_of_parameters;
-        char param_types[10][100];
-        char param_names[10][100];
-        char module_of_function[100];
-        char module_classifier[100];
-        char return_type[100];
+        vector<string> param_types;
+        vector<string> param_names;
+        string module_of_function;
+        string module_classifier;
+        string return_type;
 } code_generator_struct;
 
 //Class: Code Generator
@@ -51,86 +51,85 @@ public:
 
     void ui_initial_menu(int);
 
-    void ui_new_function(int, char*, char*, char*, int, char**, char**);
+    void ui_new_function(int, string, string, string, int, vector<string>, vector<string>);
 
-    void ui_new_module(int, char*, char*);
+    void ui_new_module(int, string, string);
 
-    void ui_generate(int, int*, int*, int, int**);
+    void ui_generate(int, vector<int>, vector<int>, int, vector<vector<int>>);
 
     //Setters
     void set_user_choice(int);
 
-    void set_modules_ids(int*);
+    void set_modules_ids(vector<int>);
 
     void set_number_of_states(int);
 
-    void set_states_functions(int**);
+    void set_states_functions(vector<vector<int>>);
 
     void set_function_id(int);
 
-    void set_function_name(char*);
+    void set_function_name(string);
 
-    void set_return_type(char*);
+    void set_return_type(string);
 
     void set_number_of_parameters(int);
 
-    void set_param_types_list(char**);
+    void set_param_types_list(vector<string>);
 
-    void set_param_names_list(char**);
+    void set_param_names_list(vector<string>);
 
     void set_module_id(int);
 
-    void set_module_name(char*);
+    void set_module_name(string);
 
     void set_number_of_modules(int);
 
-    void set_module_classifier(char*);
+    void set_module_classifier(string);
 
-    void set_module_of_function(char*);
+    void set_module_of_function(string);
 
     //Gettes
     int get_user_choice();
 
-    int* get_modules_ids();
+    vector<int> get_modules_ids();
 
     int get_number_of_states();
 
-    int** get_states_functions();
+    vector<vector<int>> get_states_functions();
 
     int get_function_id();
 
-    char* get_function_name();
+    string get_function_name();
 
-    char* get_return_type();
+    string get_return_type();
 
     int get_number_of_parameters();
 
-    char** get_param_types_list();
+    vector<string> get_param_types_list();
 
-    char** get_param_names_list();
+    vector<string> get_param_names_list();
 
     int get_module_id();
 
-    char* get_module_name();
+    string get_module_name();
 
     int get_number_of_modules();
 
-    char* get_module_classifier();
+    string get_module_classifier();
 
-    char* get_module_of_function();
+    string get_module_of_function();
 
     //Returns a 2D char array with all the modules names in the database
-    char** get_all_modules_names_by_classifier(char*);
+    vector<string> get_all_modules_names_by_classifier(string);
 
     //Returnas a 2D char array with all the function names of a module
-    char** get_all_functions_of_a_module(char*);
+    vector<string> get_all_functions_of_a_module(string);
 
     //Returns the function ID using its name
-    int get_function_id_by_name(char*);
+    int get_function_id_by_name(string);
 
     //Returns the module ID using its name
-    int get_module_id_by_name(char*);
-
+    int get_module_id_by_name(string);
 
 private:
 
@@ -138,34 +137,34 @@ private:
     int number_of_modules;
     //An array of all the modules IDs that will be used to access each
     //module information in the database
-    int *modules_ids;
+    vector<int> modules_ids;
     //The number of functions of the current state
     int number_of_functions;
     //The number of states of the states machine of the program
     int number_of_states;
     //An 2D array storing the functions IDs of each state in the format
     //ROW: States  X  COL: IDs
-    int **states_functions;
+    vector<vector<int>> states_functions;
     //Function id
     int function_id;
     //Function name
-    char function_name[100];
+    string function_name;
     //Function return type
-    char return_type[100];
+    string return_type;
     //Number of parameteres of the function being added to the database
     int number_of_parameters;
     //List of parameteres type
-    char param_types_list[10][100];
+    vector<string> param_types_list;
     //List of parameters name
-    char param_names_list[10][100];
+    vector<string> param_names_list;
     //Module id
     int module_id;
     //Module name
-    char module_name[100];
+    string module_name;
     //Classifies the module
-    char module_classifier[100];
+    string module_classifier;
     //Module that function belongs to
-    char module_of_function[100];
+    string module_of_function;
     //Current max value of the state machine
     //Shared with all the instances of the CodeGenrator
     static int curr_state_number;
@@ -192,7 +191,7 @@ private:
     //IDs of the functions belonging to the respective state. Then is
     //generate a code that calls each function sucessively, adding extras
     //features like one variable for each parameter, etc.
-    int console_linear_function(int *);
+    int console_linear_function(vector<int>);
 
     //Inclues the functions for the system initial setup
     //The initial setup is a state with id 0. This state is note
@@ -221,7 +220,7 @@ private:
     //TODO
     //Verify if the user input for the function name fits a series
     //of rules defined both by the developes and by C++ syntax
-    int check_function_name(char*);
+    int check_function_name(string);
 
     //Append modules records into CodeGenerator Modules DataBase
     //This functions aims to register a new module into the modules database
@@ -231,22 +230,22 @@ private:
     //TODO
     //Verify if the user input for the module name fits a series
     //of rules defined both by the developes and by C++ syntax
-    int check_module_name(char*);
+    int check_module_name(string);
 
     void ui_create_functions_database();
 
     void ui_create_modules_database();
 
 
-    void ui_insert_modules(int, int*);
+    void ui_insert_modules(int, vector<int>);
 
-    void ui_insert_functions(int, int*, int**);
+    void ui_insert_functions(vector<vector<int>>);
 
     int ui_start();
 
     int ui_state_machine_code();
 
-    int ui_linear_function(int*);
+    int ui_linear_function(vector<int>);
 
     string functions_data_base_path = "functions_data_base.dat";
     string modules_data_base_path = "modules_data_base.dat";

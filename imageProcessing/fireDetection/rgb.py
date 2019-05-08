@@ -20,7 +20,9 @@ def set_default(thresh):
 def get_ratio(pic):
 	ratio_x=int(pic.shape[1]/800)
 	ratio_y=int(pic.shape[0]/600)
-	if ratio_x>ratio_y:
+	if(ratio_x==0 or ratio_y==0):
+		return (pic.shape[1],pic.shape[0])
+	elif ratio_x>ratio_y:
 		ratio=(pic.shape[1]/ratio_x,pic.shape[0]/ratio_x)
 	else:
 		ratio=(pic.shape[1]/ratio_y,pic.shape[0]/ratio_y)

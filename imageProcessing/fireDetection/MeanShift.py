@@ -150,4 +150,3 @@ while running:
         label_pos+=1
         label_pos=label_pos%len(centers)
 cv2.destroyAllWindows()
-plt.savefig('image.png')

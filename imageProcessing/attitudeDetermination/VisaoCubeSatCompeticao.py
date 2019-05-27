@@ -2,10 +2,22 @@
 #como base os algoritmos de Canny, HoughLines e HoughCircles.
 #A forma de captura da imagem e atraves da imagem capturada
 import cv2
+import serial
+import time
 import numpy as np
+import sys
+
+# 3 argumentos sao passados neste codigo
+# O primeiro eh o arquivo da imagem a ser processada
+# O segundo eh a porta serial para onde serao enviados os resultados
+# O terceiro eh o nome do arquivo para onde serao escritos os resultados
+args = sys.argv
+fileName = args[1]
+serialPort = args[2]
+outputFileName = args[3]
 
 #captura o video exemplo
-img = cv2.imread('captura.jpg')
+img = cv2.imread(fileName)
 
 #Tamanho a imagem
 img_shape = img.shape
@@ -16,7 +28,7 @@ img_center_y = img_shape[0]/2
 cam_angle = 160
 
 #abre o arquivo de output
-output_file = open("adc_cv.dat", "w")
+output_file = open(outputFileName, "w")
 
 #converte a imagem para tons de cinza
 imgGray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
@@ -82,6 +94,26 @@ else:
     #valores absurdos
     pos_circle = (-1,-1)
     sun_dif_angle = -360
+
+
+# Envia os dados pela porta serial especificada nos argumentos
+porta = serialPort
+
+ser=serial.Serial(porta,9600)
+
+print(ser.portstr)
+ser.write(str(pos_line[0]).zfill(8).encode())
+ser.write("\n".encode())
+ser.write(str(pos_line[1]).zfill(8).encode())
+ser.write("\n".encode())
+ser.write(str(pos_circle[0]).zfill(8).encode())
+ser.write("\n".encode())
+ser.write(str(pos_circle[1]).zfill(8).encode())
+ser.write("\n".encode())
+ser.write(str(round(sun_dif_angle,4)).zfill(8).encode())
+ser.write("\n\n\n".encode())
+ser.close()
+
 
 #grava tudo no arquivo
 output_file.write(str(pos_line[0]).zfill(8))

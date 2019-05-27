@@ -74,7 +74,7 @@ global mouseX,mouseY
 mouseX=-1
 mouseY=-1
 
-index=4
+index=0
 
 img_list=[]
 border=[]
@@ -85,15 +85,21 @@ for file in os.listdir("for_crop/"):
 
 l=len(img_list)
 
-img = cv2.imread(img_list[index])
 cv2.namedWindow('image')
 cv2.setMouseCallback('image',draw_circle)
 
 while(1):
+	img = cv2.imread(img_list[index])
 	cv2.imshow('image',img)
 	k=cv2.waitKey(20) 
 	if (k==ord('q')):
 		break
+	elif(k==ord('[')):
+		index-=1
+		index%=l
+	elif(k==ord(']')):
+		index+=1
+		index%=l
 	elif(k==ord('c')):
 		try:
 			cv2.destroyWindow('warp')

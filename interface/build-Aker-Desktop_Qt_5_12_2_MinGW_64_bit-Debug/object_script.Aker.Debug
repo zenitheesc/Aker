@@ -1,0 +1,14 @@
+debug/main.o
+debug/firstmenu.o
+debug/mde.o
+debug/mm.o
+debug/ma.o
+debug/missioninfo.o
+debug/addfunc.o
+debug/qrc_resources.o
+debug/moc_firstmenu.o
+debug/moc_mde.o
+debug/moc_mm.o
+debug/moc_ma.o
+debug/moc_missioninfo.o
+debug/moc_addfunc.o

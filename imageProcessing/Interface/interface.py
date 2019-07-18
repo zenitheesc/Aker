@@ -749,18 +749,18 @@ def classifyCenters(num_clusters,txtLabel):
 	cv2.destroyAllWindows()
 
 	binImg = np.zeros((imgResized.shape[0], imgResized.shape[1]),dtype=bool)
-	for label in class_centers[1]:
+	for label in class_centers[4]:
 		mask = labels==label
 		print(label)
-		print(class_centers[1])
+		print(class_centers[4])
 		binImg = (binImg) | (mask)
-	area=calcDeforestation(binImg) #1
+	area=calcDeforestation(binImg)
 
 	binImg = np.zeros((imgResized.shape[0], imgResized.shape[1]),dtype=bool)
 	for label in class_centers[2]:
 		mask = labels==label
 		binImg = (binImg) | (mask)
-	labels, nro=calcFires(binImg,0) #2
+	labels, nro=calcFires(binImg,0)
 
 	txtLabel['text']="Area:{}%".format(area)+"\nFocos:{}".format(nro)
 

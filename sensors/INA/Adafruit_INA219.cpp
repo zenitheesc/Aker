@@ -488,7 +488,7 @@ float Adafruit_INA219::getPower_mW() {
   return valueDec;
 }
 
-void getData(){
+void Adafruit_INA219::getData(){
   shuntvoltage = getShuntVoltage_mV();
   busvoltage = getBusVoltage_V();
   current_mA = getCurrent_mA();
@@ -496,7 +496,7 @@ void getData(){
   loadvoltage = busvoltage + (shuntvoltage / 1000);
 }
 
-void sendMessageCAN(CAN_HandleTypeDef* phcan, uint8_t ina_id){
+void Adafruit_INA219::sendMessageCAN(CAN_HandleTypeDef* phcan, uint8_t ina_id){
   Z_CAN_Package can_tx_pkg = NULL_MSG;
   can_tx_pkg.identifier = ina_id;
   float f1, f2;

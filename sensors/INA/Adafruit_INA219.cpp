@@ -505,3 +505,4 @@ void sendMessageCAN(CAN_HandleTypeDef* phcan, uint8_t ina_id){
   memcpy(can_tx_pkg.data, &f1, sizeof(float));
   memcpy(can_tx_pkg.data + sizeof(float), &f2, sizeof(float));
   sendCanMessage(phcan, can_tx_pkg);
+}

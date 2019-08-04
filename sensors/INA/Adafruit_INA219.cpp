@@ -487,3 +487,21 @@ float Adafruit_INA219::getPower_mW() {
   valueDec *= ina219_powerMultiplier_mW;
   return valueDec;
 }
+
+void getData(){
+  shuntvoltage = getShuntVoltage_mV();
+  busvoltage = getBusVoltage_V();
+  current_mA = getCurrent_mA();
+  power_mW = getPower_mW();
+  loadvoltage = busvoltage + (shuntvoltage / 1000);
+}
+
+void sendMessageCAN(CAN_HandleTypeDef* phcan, uint8_t ina_id){
+  Z_CAN_Package can_tx_pkg = NULL_MSG;
+  can_tx_pkg.identifier = ina_id;
+  float f1, f2;
+  f1 = current_mA;
+  f2 = loadvoltage;
+  memcpy(can_tx_pkg.data, &f1, sizeof(float));
+  memcpy(can_tx_pkg.data + sizeof(float), &f2, sizeof(float));
+  sendCanMessage(phcan, can_tx_pkg);

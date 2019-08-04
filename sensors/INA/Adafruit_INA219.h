@@ -19,6 +19,8 @@
 
 #include "stm32l4xx_hal.h"
 
+#define INA_ZERO {0,0,0,0,0}
+
 /**************************************************************************/
 /*! 
     @brief  default I2C address
@@ -204,6 +206,11 @@ enum {
 /**************************************************************************/
 class Adafruit_INA219{
  public:
+  float shuntvoltage;
+  float busvoltage;
+  float current_mA;
+  float loadvoltage;
+  float power_mW;
   Adafruit_INA219(uint8_t addr = INA219_ADDRESS);
   void begin(I2C_HandleTypeDef hi2c1);
   void setCalibration_32V_2A(void);
@@ -213,6 +220,8 @@ class Adafruit_INA219{
   float getShuntVoltage_mV(void);
   float getCurrent_mA(void);
   float getPower_mW(void);
+  void getData();
+  void sendMessageCAN(CAN_HandleTypeDef* phcan, uint8_t ina_id);
 
  private:
   I2C_HandleTypeDef _hi2c1;

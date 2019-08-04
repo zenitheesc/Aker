@@ -109,9 +109,10 @@ int main(void)
   double ACCEL_POS_TRANSITION = 0.5 * ACCEL_VEL_TRANSITION * ACCEL_VEL_TRANSITION;
   double DEG_2_RAD = 0.01745329251; //trig functions require radians, BNO055 outputs degrees
 
-  Adafruit_BNO055 bno = Adafruit_BNO055(hi2c1, 55);
+  Adafruit_BNO055 bno = Adafruit_BNO055(55);
 
-  bno.begin();
+  bno.begin(hi2c1);
+  
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -119,28 +120,17 @@ int main(void)
    while (1)
   {
     /* USER CODE END WHILE */
+    sensors_event_t orientationData , linearAccelData;
+    bno.getEvent(&orientationData, Adafruit_BNO055::VECTOR_EULER);
 
+    unsigned char data [100] = "Orientation:\n\r";
+    char buffer[16];
+    int i = 15;
+    HAL_UART_Transmit(&huart2, data, sizeof(data), 5);
+    i = orientationData.orientation.x;
+    HAL_UART_Transmit(&huart2, (uint8_t*)buffer, sprintf(buffer, "%d\n\r", i), 10);
 
-	 sensors_event_t orientationData , linearAccelData;
-	 bno.getEvent(&orientationData, Adafruit_BNO055::VECTOR_EULER);
-	 //  bno.getEvent(&angVelData, Adafruit_BNO055::VECTOR_GYROSCOPE);
-	 bno.getEvent(&linearAccelData, Adafruit_BNO055::VECTOR_LINEARACCEL);
-
-	 xPos = xPos + ACCEL_POS_TRANSITION * linearAccelData.acceleration.x;
-	 yPos = yPos + ACCEL_POS_TRANSITION * linearAccelData.acceleration.y;
-
-	 // velocity of sensor in the direction it's facing
-	 headingVel = ACCEL_VEL_TRANSITION * linearAccelData.acceleration.x / cos(DEG_2_RAD * orientationData.orientation.x);
-
-
-	  unsigned char data [100] = "Heading:\n\r";
-	  char buffer[16];
-	  int i = 15;
-	  HAL_UART_Transmit(&huart2, data, sizeof(data), 5);
-	  i = orientationData.orientation.x;
-	  HAL_UART_Transmit(&huart2, (uint8_t*)buffer, sprintf(buffer, "%d\n\r", i), 10);
-
-	  HAL_Delay(10);
+    HAL_Delay(10);
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */

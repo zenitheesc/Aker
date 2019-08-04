@@ -279,9 +279,9 @@ public:
     VECTOR_GRAVITY = BNO055_GRAVITY_DATA_X_LSB_ADDR
   } adafruit_vector_type_t;
 
-  Adafruit_BNO055(I2C_HandleTypeDef hi2c1, int32_t sensorID = -1, uint8_t address = BNO055_ADDRESS_A);
+  Adafruit_BNO055(int32_t sensorID = -1, uint8_t address = BNO055_ADDRESS_A);
 
-  bool begin(adafruit_bno055_opmode_t mode = OPERATION_MODE_NDOF);
+  bool begin(I2C_HandleTypeDef hi2c1, adafruit_bno055_opmode_t mode = OPERATION_MODE_NDOF);
   void setMode(adafruit_bno055_opmode_t mode);
   void setAxisRemap(adafruit_bno055_axis_remap_config_t remapcode);
   void setAxisSign(adafruit_bno055_axis_remap_sign_t remapsign);

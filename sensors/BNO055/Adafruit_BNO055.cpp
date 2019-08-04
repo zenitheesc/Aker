@@ -40,10 +40,9 @@
  *  @param  *theWire
  *          Wire object
  */
-Adafruit_BNO055::Adafruit_BNO055(I2C_HandleTypeDef hi2c1, int32_t sensorID, uint8_t address) {
+Adafruit_BNO055::Adafruit_BNO055(int32_t sensorID, uint8_t address) {
   _sensorID = sensorID;
   _address = address;
-  _hi2c1 = hi2c1;
 }
 
 /*!
@@ -65,7 +64,9 @@ Adafruit_BNO055::Adafruit_BNO055(I2C_HandleTypeDef hi2c1, int32_t sensorID, uint
  *            OPERATION_MODE_NDOF]
  *  @return true if process is successful
  */
-bool Adafruit_BNO055::begin(adafruit_bno055_opmode_t mode) {
+bool Adafruit_BNO055::begin(I2C_HandleTypeDef hi2c1, adafruit_bno055_opmode_t mode) {
+
+  _hi2c1 = hi2c1;
 
   /* Make sure we have the right device */
   uint8_t id = read8(BNO055_CHIP_ID_ADDR);

@@ -71,6 +71,9 @@ def configureMenu():
 
 	btUnsupervised = tk.Button(menu, text='Manual', command=lambda:raise_frame(manual), width=20)
 	btUnsupervised.place(relx=0.50, rely = 0.7 ,anchor = tk.CENTER)
+
+	btUnsupervised = tk.Button(menu, text='Posicionar', command=lambda:raise_frame(getPosFrame), width=20)
+	btUnsupervised.place(relx=0.50, rely = 0.8 ,anchor = tk.CENTER)
 	
 	btExit = tk.Button(menu, text='SAIR', command=lambda:sair(), width=20)
 	btExit.place(relx=0.50, rely = 0.9 ,anchor = tk.CENTER)
@@ -155,6 +158,8 @@ def get_click(event,x,y,flags,param):
 	if event == cv2.EVENT_LBUTTONDBLCLK:
 		mouseX=x
 		mouseY=y
+		print(mouseX)
+		print(mouseY)
 
 def order_points(pts):
 	# initialzie a list of coordinates that will be ordered
@@ -252,7 +257,7 @@ refPt = []
 image = []
 clone = []
 
-mode_DEBUG=0
+mode_DEBUG=1
 
 def selectImagesForDB(textImages):
 	global imgFiles
@@ -559,7 +564,7 @@ def firstKmeansAllAtrib(db, imgBGR):
 	X_train = db.iloc[:, :].values  
 	
 	canais = [0,1,2]
-	num_clusters = 7
+	num_clusters = 9
 
 	km = KMeans(n_clusters=num_clusters)
 	km.fit(X_train)
@@ -1044,13 +1049,13 @@ def selectImageSup(textChooseImage):
 	text = filedialog.askopenfilename(title = "Escolha a imagem",filetypes = (("png files","*.png"),("jpg files","*.jpg"),("jpeg files","*.jpeg"),("all files","*.*")))
 	print(text[-4:])
 	print(text[-4:] == ".png")
-	if(text[-4:] == ".png" or text[-4:] == ".jpg" or text[-5:] == ".jpeg"):
-		print("aqui")
-		textChooseImage['text'] = text
-		supImgFile = text
-	else:
-		print("aqui2")
-		textChooseImage['text'] = 'Arquivo escolhido não é imagem'
+	#if(text[-4:] == ".png" or text[-4:] == ".jpg" or text[-5:] == ".jpeg"):
+	print("aqui")
+	textChooseImage['text'] = text
+	supImgFile = text
+	#else:
+		#print("aqui2")
+		#textChooseImage['text'] = 'Arquivo escolhido não é imagem'
 		#Avisar do erro
 
 
@@ -1304,6 +1309,8 @@ def classifyCenters(num_clusters,txtLabel):
 		prop = float(img.shape[0])/img.shape[1]
 		imgResized = cv2.resize(img,(720,int(prop*720)))
 
+
+
 	cv2.imshow('Image',imgResized)
 	cv2.moveWindow('Image',670,0)
 
@@ -1388,7 +1395,82 @@ def configureManual():
 #Fim da Area do MANUAL#
 ####################### 
 
+def posicionamento(coordenadas):
+	global supImgFile
+	i=0
+	while(coordenadas[i]!=','):
+		i+=1
+	realX=float(coordenadas[:i-1])
+	realY=float(coordenadas[i+1:])
 
+	file=open(supImgFile,"r")
+	line=file.readline()
+
+	i=0
+	j=0
+	while(line[i]!='('):
+		i+=1
+	while(line[j]!=','):
+		j+=1
+	sizeX=int(line[i+1:j-1])
+	i=0
+	while(line[i]!=')'):
+		i+=1
+	sizeY=int(line[j+1:i])
+	print(sizeY)
+	print(realY)
+
+	prop=[float(realX/sizeX),float(realY/sizeY)]
+
+	output=open("poscs.txt","w+")
+
+	line=file.readline()
+	while(line!=""):
+		i=0
+		j=0
+		while(line[i]!='='):
+			i+=1
+		while(line[j]!=','):
+			j+=1
+		sizeX=float(line[i+2:j])
+		
+		while(line[j]!='='):
+			j+=1
+		sizeY=float(line[j+1:])
+		print(prop)
+		print(sizeY)
+
+		output.write("X=")
+		output.write(str(sizeX*prop[0]))
+		output.write(" Y=")
+		output.write(str(sizeY*prop[1]))
+		output.write("\n")
+		
+		line=file.readline()
+
+
+
+def configurePos():
+	text1 = tk.Label(getPosFrame, text = "Supervisionado", font='Helvetica 18 bold').place(relx=0.5,y=15,anchor = tk.CENTER)
+	
+	textSupImage = tk.Label(getPosFrame, text = supImgFile, wraplength=(largura - 20))
+	textSupImage.place(relx=0.5,rely=0.25,anchor = tk.CENTER)
+	
+	btSelectImageSup = tk.Button(getPosFrame, text='Selecionar Focos', command=lambda:selectImageSup(textSupImage), width=20)
+	btSelectImageSup.place(relx=0.50, rely = 0.3 ,anchor = tk.CENTER)
+	
+	textTransf = tk.Label(getPosFrame, text = 'Tamanho (x,y)', wraplength=(largura - 20))
+	textTransf.place(relx=0.5,rely=0.42, anchor = tk.CENTER)
+
+	btGetPos = tk.Button(getPosFrame, text='Posições', command=lambda:posicionamento(E1.get()), width=10)
+	btGetPos.place(relx=0.5, rely = 0.65 ,anchor = tk.CENTER)
+
+	E1 = tk.Entry(getPosFrame, bd =2)
+	E1.place(relx=0.5, rely = 0.50 ,anchor = tk.CENTER)
+
+	btBack = tk.Button(getPosFrame, text='Voltar ao menu', command=lambda:raise_frame(menu), width=20)
+	btBack.place(relx=0.50, rely = 0.9 ,anchor = tk.CENTER)
+	
 
 #####################
 #        MAIN       #
@@ -1410,9 +1492,10 @@ createDatabase = tk.Frame(window,width=largura, height=altura)
 supervised = tk.Frame(window,width=largura, height=altura)
 auto = tk.Frame(window,width=largura, height=altura)
 manual = tk.Frame(window,width=largura, height=altura)
+getPosFrame = tk.Frame(window,width=largura, height=altura)
 
 # Gruda os frames para que todos fechem juntos
-for frame in (menu, crop, createDatabase, supervised, auto, manual):
+for frame in (menu, crop, createDatabase, supervised, auto, manual, getPosFrame):
 	frame.grid(row=0, column=0, sticky='news')
 
 #Configura todos os frames
@@ -1422,6 +1505,7 @@ configureCreateDatabase()
 configureSupervised()
 configureAuto()
 configureManual()
+configurePos()
 
 #Inicia no frame do MENU
 raise_frame(menu)

@@ -9,14 +9,23 @@ class MM;
 
 class MM : public QMainWindow
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    explicit MM(QWidget *parent = nullptr);
-    ~MM();
+	void on_sendComm_clicked();
+	int set_interface_attribs (int fd, int speed, int parity);
+	void set_blocking (int fd, int should_block);
+	explicit MM(QWidget *parent = nullptr);
+	~MM();
+public slots:
+	void updateVals(int fd);
+
+private slots:
+	void on_sendComm_clicked(bool checked);
 
 private:
-    Ui::MM *ui;
+	Ui::MM *ui;
+
 };
 
 #endif // MM_H

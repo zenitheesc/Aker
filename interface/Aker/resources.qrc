@@ -3,6 +3,7 @@
         <file>Images/Logo.png</file>
         <file>Images/cubesat.png</file>
         <file>Images/balloon.png</file>
+        <file>Images/left-border.png</file>
     </qresource>
     <qresource prefix="/"/>
 </RCC>
